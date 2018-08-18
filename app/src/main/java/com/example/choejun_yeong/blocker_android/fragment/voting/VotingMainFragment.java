@@ -98,6 +98,10 @@ public class VotingMainFragment extends Fragment {
                 .subscribe(this::getElections));
     }
 
+    private void unBind() {
+        mCompositeDisposable.clear();
+    }
+
 
     private void getElections(@NonNull final List<Election> elections) {
 
@@ -124,9 +128,6 @@ public class VotingMainFragment extends Fragment {
         rv.setAdapter(new Voting_cand_rv_adapter(modellist,getContext()));
     }
 
-    private void unBind() {
-        mCompositeDisposable.clear();
-    }
 
 
 }
