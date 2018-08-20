@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
 import com.example.choejun_yeong.blocker_android.DataModel.UserInfo;
 import com.example.choejun_yeong.blocker_android.R;
+import com.example.choejun_yeong.blocker_android.activity.AdminActivity;
 import com.example.choejun_yeong.blocker_android.activity.MainActivity;
 import com.example.choejun_yeong.blocker_android.service.AuthService;
 import com.example.choejun_yeong.blocker_android.service.CandidateService;
@@ -89,6 +90,11 @@ public class LoginFragment extends Fragment {
         else if(response.getCode()==403){
             Toast.makeText(getContext(), "아이디 또는 패스워드 오류", Toast.LENGTH_SHORT).show();
         }
+
+        //TODO : 관리자 권한 로그인 시 관리자 페이지로의 전환 코드 구현.
+//        Intent intent = new Intent(getActivity(), AdminActivity.class);
+//        getActivity().finish();
+//        startActivity(intent);
     }
 
     @Override
