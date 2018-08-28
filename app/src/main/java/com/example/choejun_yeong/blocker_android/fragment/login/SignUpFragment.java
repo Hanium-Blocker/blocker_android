@@ -65,6 +65,7 @@ public class SignUpFragment extends Fragment {
                 userInfo.setBirth(birth.getText().toString());
                 userInfo.setTel(tel.getText().toString());
                 userInfo.setRegion(region.getText().toString());
+                userInfo.setAdmin_state(0);
 
                 mCompositeDisposable.add(AuthService.getInstance().signUp(userInfo)
                         .subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())

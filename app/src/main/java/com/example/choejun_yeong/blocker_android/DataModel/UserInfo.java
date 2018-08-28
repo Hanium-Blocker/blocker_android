@@ -8,6 +8,7 @@ public class UserInfo {
     private String birth;
     private String tel;
     private String region;
+    private int admin_state;
 
     public String getAuth_id() {
         return auth_id;
@@ -63,5 +64,13 @@ public class UserInfo {
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    public int getAdmin_state() {
+        return admin_state;
+    }
+
+    public void setAdmin_state(int admin_state) {
+        this.admin_state = admin_state;
     }
 }
