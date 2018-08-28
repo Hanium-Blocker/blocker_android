@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,15 @@ import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
 import com.example.choejun_yeong.blocker_android.DataModel.UserInfo;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.activity.AdminActivity;
+import com.example.choejun_yeong.blocker_android.activity.LoginActivity;
 import com.example.choejun_yeong.blocker_android.activity.MainActivity;
 import com.example.choejun_yeong.blocker_android.service.AuthService;
 import com.example.choejun_yeong.blocker_android.service.CandidateService;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.exceptions.OnErrorNotImplementedException;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class LoginFragment extends Fragment {
@@ -61,7 +65,22 @@ public class LoginFragment extends Fragment {
 
                 mCompositeDisposable.add(AuthService.getInstance().login(userInfo)
                         .subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(LoginFragment.this::login));
+                        .subscribeWith(new DisposableObserver<AuthResponse>() {
+                            @Override
+                            public void onNext(AuthResponse response) {
+                                login(response);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Toast.makeText(getContext(), "아이디 또는 패스워드 오류", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }));
 
             }
         });
@@ -80,16 +99,20 @@ public class LoginFragment extends Fragment {
     }
 
     private void login(@NonNull final AuthResponse response) {
-        if(response.getCode()==200){
-            Toast.makeText(getContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+//            if (response.getCode() == 200) {
+                Toast.makeText(getContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                if (response.getMessage().equals("GUEST")) {
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    getActivity().finish();
+                    startActivity(intent);
+                } else if (response.getMessage().equals("ADMIN")) {
+                    Intent intent = new Intent(getActivity(), AdminActivity.class);
+                    getActivity().finish();
+                    startActivity(intent);
+                }
+//            } else if (response.getCode() == 403) {
 
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            getActivity().finish();
-            startActivity(intent);
-        }
-        else if(response.getCode()==403){
-            Toast.makeText(getContext(), "아이디 또는 패스워드 오류", Toast.LENGTH_SHORT).show();
-        }
+//            }
 
         //TODO : 관리자 권한 로그인 시 관리자 페이지로의 전환 코드 구현.
 //        Intent intent = new Intent(getActivity(), AdminActivity.class);
