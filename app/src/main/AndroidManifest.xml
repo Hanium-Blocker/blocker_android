@@ -22,7 +22,7 @@
         </activity>
         <activity android:name=".activity.MainActivity"></activity>
         <activity android:name=".activity.AdminActivity"></activity>
-        <activity android:name=".fragment.voting.FingerprintFragment"></activity>
+        <activity android:name=".activity.CandidateWebViewActivity"></activity>
     </application>
 
 </manifest>
