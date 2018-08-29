@@ -44,4 +44,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.google.code.gson:gson:2.6.1'
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
+
+    //fab
+    implementation 'com.github.clans:fab:1.6.4'
 }

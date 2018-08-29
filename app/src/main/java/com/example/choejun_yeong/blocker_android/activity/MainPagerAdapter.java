@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.example.choejun_yeong.blocker_android.fragment.candidate_info.CandidateMainFragment;
 import com.example.choejun_yeong.blocker_android.fragment.turnout.TurnoutMainFragment;
 import com.example.choejun_yeong.blocker_android.fragment.voting.VotingMainFragment;
+import com.example.choejun_yeong.blocker_android.fragment.voting.VotingRootFragment;
 
 public class MainPagerAdapter extends FragmentStatePagerAdapter {
     private int tabCount;
@@ -25,7 +26,7 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new TurnoutMainFragment();
             case 2:
-                return new VotingMainFragment();
+                return new VotingRootFragment();
             default:
                 return null;
         }

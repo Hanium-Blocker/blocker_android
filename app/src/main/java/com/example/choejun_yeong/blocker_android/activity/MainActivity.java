@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private static TabLayout tabLayout;
 
     @NonNull
-    private ViewPager viewpager;
+    private NonSwipeableViewPager viewpager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
