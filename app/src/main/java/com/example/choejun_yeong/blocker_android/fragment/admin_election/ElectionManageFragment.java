@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
 import com.example.choejun_yeong.blocker_android.DataModel.Election;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.fragment.admin_election.adapter.ElectionManageRvAdapter;
@@ -22,6 +23,7 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class ElectionManageFragment extends Fragment {
@@ -32,15 +34,17 @@ public class ElectionManageFragment extends Fragment {
     private ElectionManageRvAdapter rvAdapter;
     private FloatingActionButton fab;
     private RecyclerView.LayoutManager rvManager;
+    private ElectionManageFragment fragment;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin_election, container, false);
-
+        fragment = this;
         setupViews(view);
 
         return view;
+
     }
 
     private void setupViews(View v) {
@@ -52,7 +56,7 @@ public class ElectionManageFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ElectionManageCreate dialfrag = ElectionManageCreate.newInstance();
+                ElectionManageCreate dialfrag = ElectionManageCreate.newInstance(fragment);
                 dialfrag.show(getActivity().getSupportFragmentManager(),"election create fragment");
             }
         });
@@ -85,12 +89,14 @@ public class ElectionManageFragment extends Fragment {
     }
 
     private void getElections(@NonNull final List<Election> elections) {
-        rvAdapter = new ElectionManageRvAdapter(elections,getContext());
+        rvAdapter = new ElectionManageRvAdapter(elections,fragment);
         rv.setAdapter(rvAdapter);
 
         Log.d("@@@@@","@@@"+elections.get(0).getElection_name());
 
     }
+
+
 
 
 
