@@ -36,7 +36,8 @@ public class Voting_cand_rv_adapter extends RecyclerView.Adapter<VotingCandViewH
     @Override
     public void onBindViewHolder(@NonNull VotingCandViewHolder holder, int i) {
         final Candidate_Voting model = modellist.get(i);
-        holder.cand_name.setText(model.getName());
+        holder.cand_name.setText(""+model.getId()+". "+model.getName());
+
         if (model.getId() == lastCheckedPosition){
             holder.radioButton.setChecked(true);
         }else{

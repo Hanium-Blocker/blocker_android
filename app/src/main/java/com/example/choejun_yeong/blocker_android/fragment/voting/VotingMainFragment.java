@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +21,8 @@ import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate_Voting;
 import com.example.choejun_yeong.blocker_android.DataModel.Election;
 import com.example.choejun_yeong.blocker_android.R;
+import com.example.choejun_yeong.blocker_android.activity.MainActivity;
+import com.example.choejun_yeong.blocker_android.fragment.login.LoginFragment;
 import com.example.choejun_yeong.blocker_android.fragment.voting.adapter.ElectionSpinnerAdapter;
 import com.example.choejun_yeong.blocker_android.fragment.voting.adapter.Voting_cand_rv_adapter;
 import com.example.choejun_yeong.blocker_android.service.CandidateService;
@@ -52,6 +56,8 @@ public class VotingMainFragment extends Fragment {
     }
 
     private void setupViews(View v) {
+        MainActivity.tabVisible(View.VISIBLE);
+
         rv = v.findViewById(R.id.voting_rv);
         spinner = v.findViewById(R.id.voting_spinner);
         voting_btn = v.findViewById(R.id.voting_btn);
@@ -76,6 +82,17 @@ public class VotingMainFragment extends Fragment {
 
         rv.setLayoutManager(rvManager);
 
+        voting_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.voting_container, new FingerprintFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                MainActivity.tabVisible(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -96,6 +113,10 @@ public class VotingMainFragment extends Fragment {
         mCompositeDisposable.add(CandidateService.getInstance().getElectionlist()
         .subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::getElections));
+    }
+
+    private void unBind() {
+        mCompositeDisposable.clear();
     }
 
 
@@ -124,9 +145,6 @@ public class VotingMainFragment extends Fragment {
         rv.setAdapter(new Voting_cand_rv_adapter(modellist,getContext()));
     }
 
-    private void unBind() {
-        mCompositeDisposable.clear();
-    }
 
 
 }
