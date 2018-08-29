@@ -25,6 +25,9 @@
         <activity android:name=".activity.AdminActivity">
 
         </activity>
+        <activity android:name=".activity.CandidateWebViewActivity">
+
+        </activity>
 
     </application>
 
