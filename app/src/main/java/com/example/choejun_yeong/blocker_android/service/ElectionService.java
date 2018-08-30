@@ -50,4 +50,12 @@ public class ElectionService {
                 .map(it->it);
     }
 
+    public Observable<AuthResponse> modifyElection(int electionId,Election election){
+        mService = APIUtiles.getElectionService();
+
+        return mService.modifyElection(electionId,election)
+                .subscribeOn(Schedulers.io())
+                .map(it->it);
+    }
+
 }

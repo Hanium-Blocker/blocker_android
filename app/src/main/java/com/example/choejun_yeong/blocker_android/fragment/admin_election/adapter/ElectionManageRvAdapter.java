@@ -15,6 +15,7 @@ import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
 import com.example.choejun_yeong.blocker_android.DataModel.Election;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.fragment.admin_election.ElectionManageFragment;
+import com.example.choejun_yeong.blocker_android.fragment.admin_election.ElectionManageModify;
 import com.example.choejun_yeong.blocker_android.service.ElectionService;
 
 import java.util.List;
@@ -55,6 +56,8 @@ public class ElectionManageRvAdapter extends RecyclerView.Adapter<ElectionManage
             @Override
             public void onClick(View view) {
                 Log.d("@@@@","modify");
+                ElectionManageModify dialfrag = ElectionManageModify.newInstance(fragment,modellist.get(i));
+                dialfrag.show(fragment.getActivity().getSupportFragmentManager(),"election create fragment");
             }
         });
         holder.delete.setOnClickListener(new View.OnClickListener() {
