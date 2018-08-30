@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/manage_candidate_num"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="기호 1번"/>
+
+    <TextView
+        android:id="@+id/manage_candidate_name"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:paddingLeft="40dp"
+        android:layout_toRightOf="@+id/manage_candidate_num"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="후보자 이름"/>
+
+    <ImageButton
+        android:id="@+id/manage_candidate_modify_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="55dp"
+        android:src="@android:drawable/ic_menu_edit" />
+
+    <ImageButton
+        android:id="@+id/manage_candidate_delete_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:src="@android:drawable/ic_menu_delete" />
+
+</RelativeLayout>

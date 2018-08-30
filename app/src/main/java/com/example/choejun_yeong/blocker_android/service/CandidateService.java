@@ -2,6 +2,7 @@ package com.example.choejun_yeong.blocker_android.service;
 
 import android.util.Log;
 
+import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate_Voting;
 import com.example.choejun_yeong.blocker_android.DataModel.Election;
@@ -43,6 +44,22 @@ public class CandidateService {
         return mService.getCandidates(election_id)
                 .subscribeOn(Schedulers.io())
                 .map(it -> it);
+    }
+
+    public Observable<AuthResponse> addCandidate(int election_id ,Candidate candidate){
+        mService = APIUtiles.getCandidateService();
+
+        return mService.addCandidate(election_id, candidate)
+                .subscribeOn(Schedulers.io())
+                .map(it->it);
+    }
+
+    public Observable<AuthResponse> deleteCandidate(int electionId, int number){
+        mService = APIUtiles.getCandidateService();
+
+        return mService.deleteCandidate(electionId, number)
+                .subscribeOn(Schedulers.io())
+                .map(it->it);
     }
 
 }
