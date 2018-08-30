@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.example.choejun_yeong.blocker_android.fragment.admin_candidate.CandidateManageFragment;
 import com.example.choejun_yeong.blocker_android.fragment.admin_election.ElectionManageFragment;
 
 public class AdminPagerAdapter extends FragmentStatePagerAdapter {
@@ -21,7 +22,7 @@ public class AdminPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new ElectionManageFragment();
             case 1:
-                return new ElectionManageFragment();
+                return new CandidateManageFragment();
             case 2:
                 return new ElectionManageFragment();
             default:
