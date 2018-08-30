@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/manage_election_modify_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFBB33"
+        android:text="선거 수정"
+        android:textSize="20sp"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        />
+    <EditText
+        android:id="@+id/manage_election_modify_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="10dp"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:overScrollMode="never"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/manage_election_modify_title"/>
+
+
+</RelativeLayout>

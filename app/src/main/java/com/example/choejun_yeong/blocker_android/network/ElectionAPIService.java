@@ -12,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ElectionAPIService {
@@ -24,4 +25,7 @@ public interface ElectionAPIService {
 
     @DELETE("election/{electionId}")
     Observable<AuthResponse> deleteElection(@Path("electionId") int electionId);
+
+    @PUT("election/{electionId}")
+    Observable<AuthResponse> modifyElection(@Path("electionId")int electionId, @Body Election election);
 }
