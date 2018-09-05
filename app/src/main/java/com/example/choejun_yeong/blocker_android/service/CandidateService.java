@@ -15,6 +15,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
 
 public class CandidateService {
     private static final CandidateService ourInstance = new CandidateService();
@@ -47,7 +48,7 @@ public class CandidateService {
                 .map(it -> it);
     }
 
-    public Observable<AuthResponse> addCandidate(int election_id ,CandidateUpload candidate){
+    public Observable<AuthResponse> addCandidate(int election_id , CandidateUpload candidate){
         mService = APIUtiles.getCandidateService();
 
         return mService.addCandidate(election_id, candidate)
@@ -63,12 +64,20 @@ public class CandidateService {
                 .map(it->it);
     }
 
-    public Observable<AuthResponse> modifyCandidate(int electionId, int number, Candidate candidate){
+    public Observable<AuthResponse> modifyCandidate(int electionId, int number, CandidateUpload candidate){
         mService = APIUtiles.getCandidateService();
 
         return mService.modifyCandidate(electionId, number, candidate)
                 .subscribeOn(Schedulers.io())
                 .map(it->it);
+    }
+
+    public Observable<AuthResponse> addCandidateImage(int electionId, int number, String name, MultipartBody.Part image) {
+        mService = APIUtiles.getCandidateService();
+
+        return mService.addCandidateImage(electionId,number, name, image)
+                .subscribeOn(Schedulers.io())
+                .map(it -> it);
     }
 
 }
