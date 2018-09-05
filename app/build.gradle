@@ -47,4 +47,8 @@ dependencies {
 
     //fab
     implementation 'com.github.clans:fab:1.6.4'
+
+    //multi pick photo
+    implementation 'com.github.darsh2:MultipleImageSelect:v0.0.4'
+
 }
