@@ -2,6 +2,7 @@ package com.example.choejun_yeong.blocker_android.fragment.candidate_info.adapte
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -61,6 +62,7 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.Cand
     @Override
     public void onBindViewHolder(@NonNull CandidateViewHolder holder, int i) {
         Candidate candidateInfo = candidateInfoList.get(i);
+        holder.candidate_iv.setImageURI(Uri.parse(candidateInfo.getImage_file()));
         holder.candidate_num.setText(String.valueOf(candidateInfo.getNumber())+"번");
         holder.candidate_name.setText(candidateInfo.getName());
         holder.candidate_party.setText(candidateInfo.getParty());

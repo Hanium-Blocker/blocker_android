@@ -30,6 +30,8 @@
         android:layout_below="@id/login_logo_image"
         android:layout_toRightOf="@id/idtext"
         android:textSize="14sp"
+        android:singleLine="true"
+        android:imeOptions="actionNext"
         android:paddingLeft="20dp"
         android:background="#dcdcdc"
         android:hint="아이디를 입력하세요"/>
@@ -54,7 +56,10 @@
         android:layout_toRightOf="@id/pwtext"
         android:textSize="14sp"
         android:paddingLeft="20dp"
+        android:singleLine="true"
+        android:imeOptions="actionNext"
         android:background="#dcdcdc"
+        android:password="true"
         android:hint="패스워드를 입력하세요"/>
 
     <Button

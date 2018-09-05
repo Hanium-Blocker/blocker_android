@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
+import com.example.choejun_yeong.blocker_android.DataModel.CandidateUpload;
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate_Voting;
 import com.example.choejun_yeong.blocker_android.DataModel.Election;
 import com.example.choejun_yeong.blocker_android.network.APIUtiles;
@@ -46,7 +47,7 @@ public class CandidateService {
                 .map(it -> it);
     }
 
-    public Observable<AuthResponse> addCandidate(int election_id ,Candidate candidate){
+    public Observable<AuthResponse> addCandidate(int election_id ,CandidateUpload candidate){
         mService = APIUtiles.getCandidateService();
 
         return mService.addCandidate(election_id, candidate)

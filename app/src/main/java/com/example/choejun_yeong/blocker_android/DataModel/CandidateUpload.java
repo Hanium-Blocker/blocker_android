@@ -2,7 +2,7 @@ package com.example.choejun_yeong.blocker_android.DataModel;
 
 import java.io.File;
 
-public class Candidate {
+public class CandidateUpload {
 
     private int election_id;
     private int number;
@@ -11,7 +11,7 @@ public class Candidate {
     private String birth;
     private String gender;
     private String campaign_link;
-    private String image_file;
+    private File image_file;
 
     public int getElection_id() {
         return election_id;
@@ -69,11 +69,11 @@ public class Candidate {
         this.campaign_link = campaign_link;
     }
 
-    public String getImage_file() {
+    public File getImage_file() {
         return image_file;
     }
 
-    public void setImage_file(String image_file) {
+    public void setImage_file(File image_file) {
         this.image_file = image_file;
     }
 }
