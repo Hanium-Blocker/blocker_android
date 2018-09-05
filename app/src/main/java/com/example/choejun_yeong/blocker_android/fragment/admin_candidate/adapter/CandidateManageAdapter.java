@@ -16,6 +16,7 @@ import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.fragment.admin_candidate.CandidateManageFragment;
+import com.example.choejun_yeong.blocker_android.fragment.admin_candidate.CandidateManageModify;
 import com.example.choejun_yeong.blocker_android.service.CandidateService;
 
 import java.util.List;
@@ -66,17 +67,23 @@ public class CandidateManageAdapter extends RecyclerView.Adapter<CandidateManage
         holder.candidate_num.setText("기호"+ String.valueOf(candidateInfoList.get(i).getNumber()) + "번");
         holder.candidate_name.setText(candidateInfoList.get(i).getName());
 
+        Log.d("@@@@idid",""+ candidateInfoList.get(i).getElection_id());
+        Log.d("@@@@idid",""+ candidateInfoList.get(i).getNumber());
+        Log.d("@@@@idid",""+ candidateInfoList.get(i).getName());
+
         holder.modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("@@@@","modify");
+                CandidateManageModify dialfrag = CandidateManageModify.newInstance(candidateInfoList.get(i), fragment);
+                dialfrag.show(fragment.getActivity().getSupportFragmentManager(),"candidate modify fragment");
             }
         });
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("@@@@","delete");
-                mCompositeDisposable.add(CandidateService.getInstance().deleteCandidate(candidateInfoList.get(i).getElection_id() + 1, candidateInfoList.get(i).getNumber())
+                mCompositeDisposable.add(CandidateService.getInstance().deleteCandidate(candidateInfoList.get(i).getElection_id(), candidateInfoList.get(i).getNumber())
                         .subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<AuthResponse>() {
                             @Override

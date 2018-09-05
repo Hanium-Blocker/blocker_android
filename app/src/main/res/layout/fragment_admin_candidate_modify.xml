@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/manage_candidate_modify_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFBB33"
+        android:text="후보자 정보 수정"
+        android:textSize="20sp"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        />
+    <EditText
+        android:id="@+id/manage_candidate_modify_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="10dp"
+        android:hint="후보자 이름을 입력해주세요"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:overScrollMode="never"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/manage_candidate_modify_title"/>
+    <EditText
+        android:id="@+id/manage_candidate_modify_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="10dp"
+        android:hint="후보자 기호를 입력해주세요"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:overScrollMode="never"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/manage_candidate_modify_name"/>
+    <EditText
+        android:id="@+id/manage_candidate_modify_party"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="10dp"
+        android:hint="후보자 정당를 입력해주세요"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:overScrollMode="never"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/manage_candidate_modify_num"/>
+    <EditText
+        android:id="@+id/manage_candidate_modify_birth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="10dp"
+        android:hint="후보자 생년월일을 입력해주세요"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:overScrollMode="never"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/manage_candidate_modify_party"/>
+    <EditText
+        android:id="@+id/manage_candidate_modify_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="10dp"
+        android:hint="후보자 성별을 입력해주세요"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:overScrollMode="never"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/manage_candidate_modify_birth"/>
+    <EditText
+        android:id="@+id/manage_candidate_modify_campaignlink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="10dp"
+        android:hint="후보자 유세정보 링크를 입력해주세요"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:overScrollMode="never"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/manage_candidate_modify_gender"/>
+
+
+</RelativeLayout>

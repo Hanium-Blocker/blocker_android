@@ -132,6 +132,7 @@ public class CandidateManageFragment extends Fragment{
         candidateInfoList = new ArrayList<Candidate>();
         for(int i=0;i<candidates.size();i++){
             Candidate candidateInfo = new Candidate();
+            candidateInfo.setElection_id(candidates.get(i).getElection_id());
             candidateInfo.setName(candidates.get(i).getName());
             candidateInfo.setNumber(candidates.get(i).getNumber());
             candidateInfo.setParty(candidates.get(i).getParty());

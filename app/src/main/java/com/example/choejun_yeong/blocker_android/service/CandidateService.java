@@ -62,4 +62,12 @@ public class CandidateService {
                 .map(it->it);
     }
 
+    public Observable<AuthResponse> modifyCandidate(int electionId, int number, Candidate candidate){
+        mService = APIUtiles.getCandidateService();
+
+        return mService.modifyCandidate(electionId, number, candidate)
+                .subscribeOn(Schedulers.io())
+                .map(it->it);
+    }
+
 }

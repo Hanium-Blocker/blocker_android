@@ -12,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface CandidateAPIService {
@@ -27,5 +28,8 @@ public interface CandidateAPIService {
 
     @DELETE("election/{electionId}/candidate/{number}/")
     Observable<AuthResponse> deleteCandidate(@Path("electionId") int electionId, @Path("number") int number);
+
+    @PUT("election/{electionId}/candidate/{number}/")
+    Observable<AuthResponse> modifyCandidate(@Path("electionId") int electionId, @Path("number") int number, @Body Candidate candidate);
 
 }
