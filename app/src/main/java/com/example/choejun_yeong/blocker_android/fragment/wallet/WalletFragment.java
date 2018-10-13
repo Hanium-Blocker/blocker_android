@@ -1,7 +1,19 @@
-package com.example.choejun_yeong.blocker_android.web3;
+package com.example.choejun_yeong.blocker_android.fragment.wallet;
 
+import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.choejun_yeong.blocker_android.R;
+import com.example.choejun_yeong.blocker_android.web3.CreateWallet;
 
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Credentials;
@@ -13,7 +25,32 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 
-public class CreateWallet {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class WalletFragment extends Fragment {
+
+    @BindView(R.id.wallet_make_btn)
+    Button makeButton;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_make_wallet,container,false);
+        ButterKnife.bind(this,view);
+        return view;
+
+    }
+
+    @OnClick(R.id.wallet_make_btn)
+    public void createWallet(){
+        Log.d("@@@@@","make button clicked@@@@");
+        createWallet("123");
+    }
+
+
     public String[] createWallet(final String password) { //password 를 인자로 던져주면 String 배열에 wallet 이 저장된 path 와 wallet 주소를 반환 해주는 메소드
         String[] result = new String[2];
         try {
@@ -27,7 +64,7 @@ public class CreateWallet {
             Credentials credentials = WalletUtils.loadCredentials(password, result[0]);
 
             result[1] = credentials.getAddress();
-
+            Toast.makeText(getContext(), "성공", Toast.LENGTH_SHORT).show();
             return result;
         } catch (NoSuchAlgorithmException
                 | NoSuchProviderException
@@ -35,8 +72,8 @@ public class CreateWallet {
                 | IOException
                 | CipherException e) {
             e.printStackTrace();
+            Toast.makeText(getContext(), "실패", Toast.LENGTH_SHORT).show();
             return null;
         }
     }
-
 }

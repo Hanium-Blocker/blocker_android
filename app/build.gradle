@@ -56,4 +56,11 @@ dependencies {
 
     //web3.j
     implementation 'org.web3j:core:3.3.1-android'
+
+    //Butterknife
+    implementation 'com.jakewharton:butterknife:9.0.0-rc1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
+
+    //permission
+    implementation 'gun0912.ted:tedpermission:2.0.0'
 }
