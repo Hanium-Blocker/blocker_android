@@ -2,6 +2,7 @@ package com.example.choejun_yeong.blocker_android.fragment.wallet;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,7 @@ public class WalletFragment extends Fragment {
 
     @BindView(R.id.wallet_make_btn)
     Button makeButton;
+    Handler handler;
 
     @Nullable
     @Override
@@ -40,6 +42,7 @@ public class WalletFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_make_wallet,container,false);
         ButterKnife.bind(this,view);
+        handler = new Handler();
         return view;
 
     }
@@ -47,7 +50,19 @@ public class WalletFragment extends Fragment {
     @OnClick(R.id.wallet_make_btn)
     public void createWallet(){
         Log.d("@@@@@","make button clicked@@@@");
-        createWallet("123");
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        createWallet("123");
+                    }
+                });
+            }
+        }).start();
+
     }
 
 
@@ -66,6 +81,7 @@ public class WalletFragment extends Fragment {
             result[1] = credentials.getAddress();
             Toast.makeText(getContext(), "성공", Toast.LENGTH_SHORT).show();
             return result;
+
         } catch (NoSuchAlgorithmException
                 | NoSuchProviderException
                 | InvalidAlgorithmParameterException

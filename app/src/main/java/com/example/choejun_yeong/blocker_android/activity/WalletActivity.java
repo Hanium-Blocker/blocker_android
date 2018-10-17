@@ -26,7 +26,6 @@ public class WalletActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.login_container, new WalletFragment());
         fragmentTransaction.commit();
 
-
         //Permission Check
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
