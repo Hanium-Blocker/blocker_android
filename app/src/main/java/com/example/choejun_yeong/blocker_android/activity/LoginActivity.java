@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.fragment.login.LoginFragment;
 
+
 public class LoginActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
