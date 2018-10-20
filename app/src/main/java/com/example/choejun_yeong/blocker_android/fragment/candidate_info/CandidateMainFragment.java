@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
+import com.example.choejun_yeong.blocker_android.DataModel.CandidateUpload;
 import com.example.choejun_yeong.blocker_android.DataModel.Election;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.fragment.candidate_info.adapter.CandidateAdapter;
@@ -116,15 +117,15 @@ public class CandidateMainFragment extends Fragment {
     }
 
     private void getCandidates(@NonNull final List<Candidate> candidates){
-        candidateInfoList = new ArrayList<Candidate>();
-        for(int i=0;i<candidates.size();i++){
-            Candidate candidateInfo = new Candidate();
-            candidateInfo.setName(candidates.get(i).getName());
-            candidateInfo.setNumber(candidates.get(i).getNumber());
-            candidateInfo.setParty(candidates.get(i).getParty());
-            candidateInfo.setCampaign_link(candidates.get(i).getCampaign_link());
-            candidateInfoList.add(candidateInfo);
-        }
-        rv.setAdapter(new CandidateAdapter(candidateInfoList,getContext()));
+//        candidateInfoList = new ArrayList<Candidate>();
+//        for(int i=0;i<candidates.size();i++){
+//            Candidate candidateInfo = new Candidate();
+//            candidateInfo.setName(candidates.get(i).getName());
+//            candidateInfo.setNumber(candidates.get(i).getNumber());
+//            candidateInfo.setParty(candidates.get(i).getParty());
+//            candidateInfo.setCampaign_link(candidates.get(i).getCampaign_link());
+//            candidateInfoList.add(candidateInfo);
+//        }
+        rv.setAdapter(new CandidateAdapter(candidates,getContext()));
     }
 }

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
+import com.example.choejun_yeong.blocker_android.DataModel.CandidateUpload;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.service.CandidateService;
 
@@ -67,7 +68,7 @@ public class CandidateManageModify extends DialogFragment{
                 .setPositiveButton("등록", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Candidate modifiedCandidate = new Candidate();
+                        CandidateUpload modifiedCandidate = new CandidateUpload();
                         modifiedCandidate.setName(candidate_name.getText().toString());
                         modifiedCandidate.setNumber(Integer.valueOf(candidate_num.getText().toString()));
                         modifiedCandidate.setParty(candidate_party.getText().toString());

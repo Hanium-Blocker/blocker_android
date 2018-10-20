@@ -1,5 +1,7 @@
 package com.example.choejun_yeong.blocker_android.fragment.admin_candidate.adapter;
 
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
+import com.darsh.multipleimageselect.helpers.Constants;
 import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
 import com.example.choejun_yeong.blocker_android.R;
@@ -19,6 +23,7 @@ import com.example.choejun_yeong.blocker_android.fragment.admin_candidate.Candid
 import com.example.choejun_yeong.blocker_android.fragment.admin_candidate.CandidateManageModify;
 import com.example.choejun_yeong.blocker_android.service.CandidateService;
 
+import java.io.Serializable;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -29,6 +34,8 @@ import io.reactivex.schedulers.Schedulers;
 public class CandidateManageAdapter extends RecyclerView.Adapter<CandidateManageAdapter.CandidateManageViewHolder>{
     @NonNull
     private CompositeDisposable mCompositeDisposable;
+
+    public static Candidate clicked_candidate;
 
     private List<Candidate> candidateInfoList;
     private CandidateManageFragment fragment;
@@ -41,7 +48,7 @@ public class CandidateManageAdapter extends RecyclerView.Adapter<CandidateManage
 
     public class CandidateManageViewHolder extends RecyclerView.ViewHolder {
         public TextView candidate_num, candidate_name;
-        public ImageButton modify,delete;
+        public ImageButton modify,delete,imageButton;
 
         public CandidateManageViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -50,6 +57,7 @@ public class CandidateManageAdapter extends RecyclerView.Adapter<CandidateManage
             candidate_name = itemView.findViewById(R.id.manage_candidate_name);
             modify = itemView.findViewById(R.id.manage_candidate_modify_btn);
             delete = itemView.findViewById(R.id.manage_candidate_delete_btn);
+            imageButton = itemView.findViewById(R.id.manage_candidate_image_btn);
 
         }
     }
@@ -109,7 +117,25 @@ public class CandidateManageAdapter extends RecyclerView.Adapter<CandidateManage
                         }));
             }
         });
+
+        holder.imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(fragment.getContext(), AlbumSelectActivity.class);
+                intent.putExtra(Constants.INTENT_EXTRA_LIMIT, 3);
+                clicked_candidate = new Candidate();
+                clicked_candidate.setElection_id(candidateInfoList.get(i).getElection_id());
+                clicked_candidate.setNumber(candidateInfoList.get(i).getNumber());
+                clicked_candidate.setName(candidateInfoList.get(i).getName());
+//                intent.putExtra("electionid",candidateInfoList.get(i).getElection_id());
+//                intent.putExtra("number",candidateInfoList.get(i).getNumber());
+//                Log.d("@@@LOGLOGLOGLOG",""+intent.getExtras().get("number")+"//"+intent.getExtras().get("electionid")+intent.getExtras().get(Constants.INTENT_EXTRA_LIMIT));
+//                Log.d("#####","@@@@"+candidateInfoList.get(i).getNumber()+",,,,"+candidateInfoList.get(i).getElection_id());
+                fragment.startActivityForResult(intent, Constants.REQUEST_CODE);
+            }
+        });
     }
+
 
 
     @Override

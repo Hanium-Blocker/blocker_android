@@ -1,5 +1,6 @@
 package com.example.choejun_yeong.blocker_android.fragment.admin_candidate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,12 +9,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.darsh.multipleimageselect.helpers.Constants;
+import com.darsh.multipleimageselect.models.Image;
+import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
 import com.example.choejun_yeong.blocker_android.DataModel.Election;
 import com.example.choejun_yeong.blocker_android.R;
@@ -24,12 +30,19 @@ import com.example.choejun_yeong.blocker_android.fragment.voting.adapter.Electio
 import com.example.choejun_yeong.blocker_android.service.CandidateService;
 import com.github.clans.fab.FloatingActionButton;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
+import static android.app.Activity.RESULT_OK;
 
 public class CandidateManageFragment extends Fragment{
     @NonNull
@@ -43,6 +56,7 @@ public class CandidateManageFragment extends Fragment{
     private ElectionSpinnerAdapter spinnerAdapter;
     private CandidateManageFragment fragment;
     private int index;
+    MultipartBody.Part body;
 
     @Nullable
     @Override
@@ -142,5 +156,53 @@ public class CandidateManageFragment extends Fragment{
         rv.setAdapter(new CandidateManageAdapter(candidateInfoList, fragment));
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
 
+        if (requestCode == Constants.REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            ArrayList<Image> images = data.getParcelableArrayListExtra(Constants.INTENT_EXTRA_IMAGES);
+//            StringBuffer stringBuffer = new StringBuffer();
+////
+            int number = CandidateManageAdapter.clicked_candidate.getNumber();
+            int election_id = CandidateManageAdapter.clicked_candidate.getElection_id();
+            String name = CandidateManageAdapter.clicked_candidate.getName();
+//        Log.d("@@@@@@QWEQWE",""+data.getExtras());
+//            Log.d("@@@@@@@@QWERTY",""+number+"   // "+ election_id);
+            for (int i = 0, l = images.size(); i < l; i++) {
+//                stringBuffer.append(images.get(i).path + "\n");
+                File file = new File(images.get(i).path);
+                RequestBody reqfile = RequestBody.create(MediaType.parse("image/*"),file);
+                body = MultipartBody.Part.createFormData("image_file",file.getName(),reqfile);
+
+
+
+
+                Log.d("@@@","file LOg : "+file);
+
+            }
+            mCompositeDisposable.add(CandidateService.getInstance().addCandidateImage(election_id,number,name,body)
+                    .subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(new DisposableObserver<AuthResponse>() {
+
+                        @Override
+                        public void onNext(AuthResponse response) {
+                            Log.d("@@@BODY",""+body);
+                            if(response.getCode()==409){
+                                Toast.makeText(getContext(), "이미지 등록 실패", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        @Override
+                        public void onError(Throwable e) {
+                            Toast.makeText(getContext(), "이미지 등록 오류", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            Toast.makeText(getContext(), "이미지 등록 성공", Toast.LENGTH_SHORT).show();
+                        }
+                    }));
+
+        }
+    }
 }

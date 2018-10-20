@@ -2,6 +2,7 @@ package com.example.choejun_yeong.blocker_android.fragment.candidate_info.adapte
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.activity.CandidateWebViewActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -61,6 +63,9 @@ public class CandidateAdapter extends RecyclerView.Adapter<CandidateAdapter.Cand
     @Override
     public void onBindViewHolder(@NonNull CandidateViewHolder holder, int i) {
         Candidate candidateInfo = candidateInfoList.get(i);
+        if(candidateInfo.getImage_file()!=null) {
+            Picasso.get().load(candidateInfo.getImage_file()).into(holder.candidate_iv);
+        }
         holder.candidate_num.setText(String.valueOf(candidateInfo.getNumber())+"번");
         holder.candidate_name.setText(candidateInfo.getName());
         holder.candidate_party.setText(candidateInfo.getParty());

@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#ffffff">
 
     <ImageView
         android:id="@+id/candidate_iv"
@@ -11,24 +12,29 @@
         android:layout_height="270dp" />
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="1">
         <TextView
             android:id="@+id/candidate_num"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="20dp"
+            android:background="@drawable/border_left_top"
             android:text="기호"/>
 
         <TextView
             android:id="@+id/candidate_name"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
+            android:layout_weight="0.7"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="20dp"
+            android:background="@drawable/border_top_left_right"
             android:text="이름"/>
     </LinearLayout>
 
@@ -38,6 +44,7 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:textSize="20dp"
+        android:background="@drawable/border_view"
         android:text="정당"/>
 
     <Button

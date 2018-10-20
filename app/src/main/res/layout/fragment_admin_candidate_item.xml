@@ -27,6 +27,13 @@
         android:text="후보자 이름"/>
 
     <ImageButton
+        android:id="@+id/manage_candidate_image_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="110dp"
+        android:src="@android:drawable/ic_menu_gallery" />
+    <ImageButton
         android:id="@+id/manage_candidate_modify_btn"
         android:layout_width="50dp"
         android:layout_height="50dp"

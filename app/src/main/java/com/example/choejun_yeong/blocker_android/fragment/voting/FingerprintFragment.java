@@ -65,11 +65,11 @@ public class FingerprintFragment extends Fragment {
              * Intent intent = new Intent(this, DefaultAuthenticationActivity.class);
              * startActivity(intent);
              */
-            textView.setText("Your Device does not have a Fingerprint Sensor");
+            textView.setText("지문 인식 센서가 없습니다.");
         }else {
             // Checks whether fingerprint permission is set on manifest
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
-                textView.setText("Fingerprint authentication permission not enabled");
+                textView.setText("지문 인식 권한이 없습니다.");
             }else{
                 // Check whether at least one fingerprint is registered
                 if (!fingerprintManager.hasEnrolledFingerprints()) {
@@ -77,7 +77,7 @@ public class FingerprintFragment extends Fragment {
                 }else{
                     // Checks whether lock screen security is enabled or not
                     if (!keyguardManager.isKeyguardSecure()) {
-                        textView.setText("Lock screen security not enabled in Settings");
+                        textView.setText("세팅에서 잠금화면이 설정 되어있지 않습니다.");
                     }else{
                         generateKey();
 
