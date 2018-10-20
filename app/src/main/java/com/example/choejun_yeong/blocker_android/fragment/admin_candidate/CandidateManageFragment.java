@@ -117,7 +117,7 @@ public class CandidateManageFragment extends Fragment{
         unBind();
     }
 
-    private void bind() {
+    public void bind() {
         mCompositeDisposable = new CompositeDisposable();
 
         mCompositeDisposable.add(CandidateService.getInstance().getElectionlist()
