@@ -54,7 +54,7 @@ public class CandidateManageModify extends DialogFragment{
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.fragment_admin_candidate_create, null);
+        View view = inflater.inflate(R.layout.fragment_admin_candidate_modify, null);
 
         candidate_name = view.findViewById(R.id.manage_candidate_create_name);
         candidate_num = view.findViewById(R.id.manage_candidate_create_num);

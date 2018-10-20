@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
 import com.example.choejun_yeong.blocker_android.DataModel.Election;
 import com.example.choejun_yeong.blocker_android.R;
+import com.example.choejun_yeong.blocker_android.fragment.admin_candidate.CandidateManageFragment;
 import com.example.choejun_yeong.blocker_android.service.ElectionService;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
