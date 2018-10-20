@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.choejun_yeong.blocker_android.R;
@@ -57,7 +58,7 @@ public class WalletActivity extends AppCompatActivity {
                 .check();
 
         // web3
-        Web3j web3j = Web3jFactory.build(new HttpService("https://rinkeby.infura.io/v3/de770d2ce1834cc794cfd6dfe42fb83d"));
+        Web3j web3j = Web3jFactory.build(new HttpService("https://ropsten.infura.io/v3/de770d2ce1834cc794cfd6dfe42fb83d"));
         Web3ClientVersion web3ClientVersion = null;
         try {
             web3ClientVersion = web3j.web3ClientVersion().sendAsync().get();
@@ -67,6 +68,9 @@ public class WalletActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         String ClientVersionString = web3ClientVersion.getWeb3ClientVersion();
-        Toast.makeText(this, "Clientversion: " + ClientVersionString, Toast.LENGTH_SHORT).show();
+        Log.d("ClientVersion: " ,ClientVersionString);
     }
 }
+
+
+
