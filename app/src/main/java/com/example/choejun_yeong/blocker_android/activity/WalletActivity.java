@@ -223,33 +223,6 @@ public class WalletActivity extends AppCompatActivity {
 
     @OnClick(R.id.vote_button2)
     void onButtonClicked2() {
-//        new Thread() {
-//            public void run() {
-//                try {
-//                    Handler handler = new Handler(Looper.getMainLooper());
-//                    handler.postDelayed(new Runnable() {
-//
-//                        @Override
-//
-//                        public void run() {
-//                            try {
-//                                Toast.makeText(WalletActivity.this, "이름: " + election.candidates(BigInteger.valueOf(1l)).send().getValue2()
-//                                                + "// 투표수: " + election.candidates(BigInteger.valueOf(1l)).send().getValue3()
-//                                                + "이름: " + election.candidates(BigInteger.valueOf(2l)).send().getValue2()
-//                                                + "// 투표수: " + election.candidates(BigInteger.valueOf(2l)).send().getValue3(),
-//                                        Toast.LENGTH_SHORT).show();
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//
-//                    }, 0);
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }.start();
 
         new AsyncTask<Void, Void, String>() {
             //            String str =
