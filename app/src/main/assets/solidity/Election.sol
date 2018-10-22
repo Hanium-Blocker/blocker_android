@@ -10,20 +10,26 @@ contract Election {
 
     // Store accounts that have voted
     mapping(address => bool) public voters;
+
     // Store Candidates
+
     // Fetch Candidate
     mapping(uint => Candidate) public candidates;
+
+    // // Get Candidate's votecount
+    // mapping(uint => Candi) public getVoteCount;
+
     // Store Candidates Count
     uint public candidatesCount;
 
     // voted event
-    event votedEvent (
-        uint indexed _candidateId
-    );
+    // event votedEvent (
+    //     uint indexed _candidateId
+    // );
 
     function Election () public {
-        addCandidate("Candidate 1");
-        addCandidate("Candidate 2");
+        addCandidate("1.홍준표");
+        addCandidate("2.문재인");
     }
 
     function addCandidate (string _name) private {
@@ -45,6 +51,16 @@ contract Election {
         candidates[_candidateId].voteCount ++;
 
         // trigger voted event
-        votedEvent(_candidateId);
+        // votedEvent(_candidateId);
     }
+
+    function getvoteCount(uint _candidateId) public view returns (uint) {
+        require(_candidateId > 0 && _candidateId <= candidatesCount);
+
+        return candidates[_candidateId].voteCount;
+    }
+
+    // function getvoteCountAll() public returns {
+        
+    // }
 }
