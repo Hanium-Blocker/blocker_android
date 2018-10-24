@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:layout_centerVertical="true"
+        android:layout_marginTop="100dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/vote_button1"
         android:layout_width="100dp"
@@ -20,4 +20,13 @@
         android:layout_centerHorizontal="true"
         android:layout_width="100dp"
         android:layout_height="100dp" />
+
+    <Button
+        android:id="@+id/make_wallet_btn"
+        android:text="지갑 생성!"
+        android:layout_below="@+id/vote_button2"
+        android:layout_centerHorizontal="true"
+        android:layout_width="100dp"
+        android:layout_height="100dp">
+    </Button>
 </RelativeLayout>

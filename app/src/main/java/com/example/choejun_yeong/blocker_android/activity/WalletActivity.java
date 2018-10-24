@@ -4,6 +4,7 @@ package com.example.choejun_yeong.blocker_android.activity;
 import android.Manifest;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
@@ -31,9 +32,14 @@ import org.web3j.tx.TransactionManager;
 import org.web3j.tx.Transfer;
 import org.web3j.utils.Convert;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.file.Path;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -66,37 +72,36 @@ public class WalletActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wallet);
         ButterKnife.bind(this);
 
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.login_container, new WalletFragment());
-//        fragmentTransaction.commit();
-
         CheckPermission();
 
 //        web3j = Web3jFactory.build(new HttpService("http://10.0.2.2:8545")); //에뮬레이터의 로컬 주소는 10.0.2.2
-        web3j = Web3jFactory.build(new HttpService("https://ropsten.infura.io/v3/de770d2ce1834cc794cfd6dfe42fb83d"));
-        credentials = getCredentialsFromPrivateKey();
+        web3j = Web3jFactory.build(new HttpService("https://ropsten.infura.io/v3/de770d2ce1834cc794cfd6dfe42fb83d"));//해당 컨트렉트 주소로 연결
+        credentials = getCredentialsFromPrivateKey(); //개인키를 통한 자격 획득.
+        election = loadContract(CONTRACT_ADDRESS, web3j, credentials); //컨트랙트 주소, web3, 자격을 통한 컨트렉트 로딩.
+
+        Credentials myCredential = null;
+        try {
+            myCredential = WalletUtils.loadCredentials("123","/storage/emulated/0/Download/UTC--2018-10-24T18-55-17.507--730ef7fff4f05f06cdc7947a9fae2a6f2b630675.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CipherException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("@@@Address: ",""+myCredential.getAddress());
+
+
+//        new Thread() {
+//            public void run() {
+//                try {
+//                    Log.d("@@@Log",""+election.candidates(BigInteger.valueOf(1l)).send().toString());
 //
-        election = loadContract(CONTRACT_ADDRESS, web3j, credentials);
-
-
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }.start();
 //
-        new Thread() {
-            public void run() {
-                try {
-//                    election.vote(BigInteger.valueOf(1l)).send();
-//                    Log.d("@@voteCount = ",election.candidatesCount().send().toString());
-//                    Log.d("@@@candidate_info", "이름: " + election.candidates(BigInteger.valueOf(1l)).send().getValue2() + "// 투표수: " + election.candidates(BigInteger.valueOf(1l)).send().getValue3());
-                    printWeb3Version(web3j);
-                    Log.d("@@@Log",""+election.candidates(BigInteger.valueOf(1l)).send().toString());
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-//
-
     }
 
     private void CheckPermission() {
@@ -175,36 +180,37 @@ public class WalletActivity extends AppCompatActivity {
         System.out.print("Transaction = " + transactionReceipt.getTransactionHash());
     }
 
-//    private void voteElection(Election election) throws Exception {
-//        election
-//                .vote(BigInteger.valueOf(1L))
-//                .send();
-//        addressBook
-//                .addAddress("0x256a04B9F02036Ed2f785D8f316806411D605285", "Tom")
-//                .send();
-//
-//        addressBook
-//                .addAddress("0x82CDf5a3192f2930726637e9C738A78689a91Be3", "Susan")
-//                .send();
-//
-//        addressBook
-//                .addAddress("0x95F57F1DD015ddE7Ec2CbC8212D0ae2faC9acA11", "Bob")
-//                .send();
-//    }
-//
-//    private void printAddresses(AddressBook addressBook) throws Exception {
-//        for (Object address : addressBook.getAddresses().send()) {
-//            String addressString = address.toString();
-//            String alias = addressBook.getAlias(addressString).send();
-//            System.out.println("Address " + addressString + " aliased as " + alias);
-//        }
-//    }
-//
-//    private void removeAddress(AddressBook addressBook) throws Exception {
-//        addressBook
-//                .removeAddress("0x256a04B9F02036Ed2f785D8f316806411D605285")
-//                .send();
-//    }
+
+    public String[] createWallet(final String password) { //password 를 인자로 던져주면 String 배열에 wallet 이 저장된 path 와 wallet 주소를 반환 해주는 메소드
+        String[] result = new String[2];
+        try {
+            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS); //다운로드 path 가져오기
+            if (!path.exists()) {
+                path.mkdir();
+            }
+            String fileName = WalletUtils.generateLightNewWalletFile(password, new File(String.valueOf(path))); //지갑생성
+            result[0] = path + "/" + fileName;
+
+            Credentials credentials = WalletUtils.loadCredentials(password, result[0]);
+
+            result[1] = credentials.getAddress();
+            Toast.makeText(this, "성공", Toast.LENGTH_SHORT).show();
+            return result;
+
+        } catch (NoSuchAlgorithmException
+                | NoSuchProviderException
+                | InvalidAlgorithmParameterException
+                | IOException
+                | CipherException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "실패", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+    }
+
+
+
+    ////////////////////////////////////////////////////////// click event
 
     @OnClick(R.id.vote_button1)
     void onButtonClicked() {
@@ -242,6 +248,12 @@ public class WalletActivity extends AppCompatActivity {
 
         }.execute();
 
+    }
+
+    @OnClick(R.id.make_wallet_btn)
+    void onButtonClicked3(){
+        String[] wallet = createWallet("123");
+        Log.d("@@@wallet: ",""+wallet[0]+wallet[1]);
     }
 
 }
