@@ -46,14 +46,14 @@ public class WalletActivity extends AppCompatActivity {
     @BindView(R.id.vote_button1)
     Button btn_vote;
 
-    private final static String PRIVATE_KEY = "666a82fc33f8134577a7beb1bdeaa689bb72740178727691d63032432b83e0fb";
+    private final static String PRIVATE_KEY = "666A82FC33F8134577A7BEB1BDEAA689BB72740178727691D63032432B83E0FB";
 
     private final static BigInteger GAS_LIMIT = BigInteger.valueOf(6721975L);
     private final static BigInteger GAS_PRICE = BigInteger.valueOf(20000000000L);
 
     private final static String RECIPIENT = "0x2DcCa9B61E50D79A90a813fcD6a42c3A3Ac52e6f";
 
-    private final static String CONTRACT_ADDRESS = "0x27B61efB1824DA5611941285C320386DA052EfeC";
+    private final static String CONTRACT_ADDRESS = "0x5403b5705c2a89517e03ea220806c818796ba3ff";
 
     Web3j web3j;
     Credentials credentials;
@@ -63,7 +63,7 @@ public class WalletActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_wallet);
         ButterKnife.bind(this);
 
 //        FragmentManager fragmentManager = getSupportFragmentManager();
@@ -73,8 +73,8 @@ public class WalletActivity extends AppCompatActivity {
 
         CheckPermission();
 
-        web3j = Web3jFactory.build(new HttpService("http://10.0.2.2:8545")); //에뮬레이터의 로컬 주소는 10.0.2.2
-
+//        web3j = Web3jFactory.build(new HttpService("http://10.0.2.2:8545")); //에뮬레이터의 로컬 주소는 10.0.2.2
+        web3j = Web3jFactory.build(new HttpService("https://ropsten.infura.io/v3/de770d2ce1834cc794cfd6dfe42fb83d"));
         credentials = getCredentialsFromPrivateKey();
 //
         election = loadContract(CONTRACT_ADDRESS, web3j, credentials);
@@ -86,8 +86,9 @@ public class WalletActivity extends AppCompatActivity {
                 try {
 //                    election.vote(BigInteger.valueOf(1l)).send();
 //                    Log.d("@@voteCount = ",election.candidatesCount().send().toString());
-                    Log.d("@@@candidate_info", "이름: " + election.candidates(BigInteger.valueOf(1l)).send().getValue2() + "// 투표수: " + election.candidates(BigInteger.valueOf(1l)).send().getValue3());
-
+//                    Log.d("@@@candidate_info", "이름: " + election.candidates(BigInteger.valueOf(1l)).send().getValue2() + "// 투표수: " + election.candidates(BigInteger.valueOf(1l)).send().getValue3());
+                    printWeb3Version(web3j);
+                    Log.d("@@@Log",""+election.candidates(BigInteger.valueOf(1l)).send().toString());
 
                 } catch (Exception e) {
                     e.printStackTrace();
