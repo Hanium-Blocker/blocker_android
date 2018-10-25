@@ -17,7 +17,11 @@ import android.widget.Toast;
 import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
 import com.example.choejun_yeong.blocker_android.DataModel.UserInfo;
 import com.example.choejun_yeong.blocker_android.R;
+import com.example.choejun_yeong.blocker_android.SharedMemory.PreferenceManager;
 import com.example.choejun_yeong.blocker_android.service.AuthService;
+import com.example.choejun_yeong.blocker_android.util.ContractUtil;
+
+import org.web3j.crypto.WalletUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -31,13 +35,15 @@ public class SignUpFragment extends Fragment {
     private CompositeDisposable mCompositeDisposable;
 
     EditText id,pw,name,gender,tel,region,birth;
+    ContractUtil contractUtil;
     Button signup_btn;
-
+    UserInfo userInfo = new UserInfo();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         frag = this;
+        contractUtil = new ContractUtil(frag.getContext());
         View view = inflater.inflate(R.layout.fragment_signup,container,false);
         setupViews(view);
         return view;
@@ -57,7 +63,7 @@ public class SignUpFragment extends Fragment {
         signup_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserInfo userInfo = new UserInfo();
+
                 userInfo.setAuth_id(id.getText().toString());
                 userInfo.setPassword(pw.getText().toString());
                 userInfo.setName(name.getText().toString());
@@ -79,6 +85,9 @@ public class SignUpFragment extends Fragment {
 
     private void signup(@NonNull final AuthResponse response) {
         if(response.getCode()==200){
+            PreferenceManager.setWalletPassword(userInfo.getPassword());
+            contractUtil.createWallet(PreferenceManager.getWalletPassword());
+            Log.d("@@@wallet Path: ",""+PreferenceManager.getWalletPath());
             Toast.makeText(getActivity(), "회원가입 성공", Toast.LENGTH_SHORT).show();
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction().remove(SignUpFragment.this).commit();

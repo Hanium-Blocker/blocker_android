@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.choejun_yeong.blocker_android.R;
+import com.example.choejun_yeong.blocker_android.SharedMemory.PreferenceManager;
 import com.example.choejun_yeong.blocker_android.contracts.Election;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -250,12 +251,24 @@ public class WalletActivity extends AppCompatActivity {
 
     }
 
+//    @OnClick(R.id.make_wallet_btn)
+//    void onButtonClicked3(){
+//        String[] wallet = createWallet("123");
+//        Log.d("@@@wallet: ",""+wallet[0]+wallet[1]);
+//    }
+
     @OnClick(R.id.make_wallet_btn)
     void onButtonClicked3(){
         String[] wallet = createWallet("123");
         Log.d("@@@wallet: ",""+wallet[0]+wallet[1]);
+        PreferenceManager.setWalletPath(wallet[0]);
     }
 
+    @OnClick(R.id.test_btn)
+    void onButtonClicked4(){
+       String str = PreferenceManager.getWalletPath();
+       Log.d("@@@@WAllet Path ",str);
+    }
 }
 
 
