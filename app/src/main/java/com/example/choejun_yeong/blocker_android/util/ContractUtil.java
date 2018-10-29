@@ -2,6 +2,7 @@ package com.example.choejun_yeong.blocker_android.util;
 
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.choejun_yeong.blocker_android.contracts.Election;
@@ -11,6 +12,7 @@ import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
+import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.http.HttpService;
 
 import java.io.File;
@@ -19,6 +21,7 @@ import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.util.concurrent.ExecutionException;
 
 public class ContractUtil {
 
@@ -35,8 +38,8 @@ public class ContractUtil {
     public ContractUtil(Context context) {
         this.context=context;
         web3j = Web3jFactory.build(new HttpService("https://ropsten.infura.io/v3/de770d2ce1834cc794cfd6dfe42fb83d"));//해당 컨트렉트 주소로 연결
-//        credentials = getCredentialsFromPrivateKey(); //개인키를 통한 자격 획득.
-//        election = loadContract(CONTRACT_ADDRESS, web3j, credentials); //컨트랙트 주소, web3, 자격을 통한 컨트렉트 로딩.
+        credentials = getCredentialsFromPrivateKey(); //개인키를 통한 자격 획득.
+        election = loadContract(CONTRACT_ADDRESS, web3j, credentials); //컨트랙트 주소, web3, 자격을 통한 컨트렉트 로딩.
     }
 
     private Credentials getCredentialsFromWallet() throws IOException, CipherException {
@@ -84,6 +87,18 @@ public class ContractUtil {
             e.printStackTrace();
             Toast.makeText(context, "해당 계정의 지갑 생성에 실패하였습니다.", Toast.LENGTH_SHORT).show();
             return null;
+        }
+    }
+
+    public void getvoteCount(){
+        RemoteCall<BigInteger> remoteCall = election.getvoteCount(BigInteger.valueOf(1));
+
+        try {
+            Log.d("@@@",""+remoteCall.sendAsync().get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
     }
 

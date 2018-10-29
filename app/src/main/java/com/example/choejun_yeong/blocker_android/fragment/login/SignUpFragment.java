@@ -77,7 +77,6 @@ public class SignUpFragment extends Fragment {
                         .subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
                         .subscribe(SignUpFragment.this::signup));
 
-
             }
         });
     }
