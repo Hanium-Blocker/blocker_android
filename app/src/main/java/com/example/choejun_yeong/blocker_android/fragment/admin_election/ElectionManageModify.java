@@ -8,14 +8,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
-import com.example.choejun_yeong.blocker_android.DataModel.Election;
+import com.example.choejun_yeong.blocker_android.DataModel.ElectionVO;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.service.ElectionService;
 
@@ -29,9 +28,9 @@ public class ElectionManageModify extends DialogFragment {
     private CompositeDisposable mCompositeDisposable;
     private EditText name;
     private Fragment frag;
-    Election election;
+    ElectionVO election;
 
-    public static ElectionManageModify newInstance(ElectionManageFragment frag,Election election) {
+    public static ElectionManageModify newInstance(ElectionManageFragment frag,ElectionVO election) {
 
         Bundle args = new Bundle();
 
@@ -57,7 +56,7 @@ public class ElectionManageModify extends DialogFragment {
                 .setPositiveButton("수정", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Election elec = new Election();
+                        ElectionVO elec = new ElectionVO();
                         elec.setElection_name(name.getText().toString());
                         mCompositeDisposable.add(ElectionService.getInstance().modifyElection(election.getElection_id(),elec)
                                 .subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())

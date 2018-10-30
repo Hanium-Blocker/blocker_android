@@ -6,35 +6,53 @@ contract Election {
         uint id;
         string name;
         uint voteCount;
+        uint electionId;
     }
 
-    // Store accounts that have voted
+    //Model a Elections
+    struct Elections{
+        uint id;
+        string name;
+    }
+
+    //초기 토큰 공급량.
+    // uint public decimals = 2; //자리수
+    // uint public INITIAL_SUPPLY = 10000 * (10 ** decimals);
+
+    // 투표 유무 저장
     mapping(address => bool) public voters;
 
-    // Store Candidates
+    // 후보자 저장
 
-    // Fetch Candidate
+    // 후보자 읽어오기
     mapping(uint => Candidate) public candidates;
 
-    // // Get Candidate's votecount
-    // mapping(uint => Candi) public getVoteCount;
+    //선거 읽어오기
+    mapping(uint => Elections) public elections;
 
-    // Store Candidates Count
+    // mapping(string => Elections) public electionss;
+
+    // 후보자 카운터
     uint public candidatesCount;
 
-    // voted event
-    // event votedEvent (
-    //     uint indexed _candidateId
-    // );
+    //선거 카운터
+    uint public electionCount;
 
     function Election () public {
-        addCandidate("1.홍준표");
-        addCandidate("2.문재인");
+        // balances[msg.sender]= INITIAL_SUPPLY;
+        addElection("19대 대선");
+        addCandidate("1.홍준표",1);
+        addCandidate("2.문재인",1);
     }
 
-    function addCandidate (string _name) private {
+    function addCandidate (string _name,uint electionId) private {
         candidatesCount ++;
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0,electionId);
+    }
+
+    function addElection(string _name) private{
+        electionCount ++;
+        elections[electionCount]= Elections(electionCount,_name);
     }
 
     function vote (uint _candidateId) public {
@@ -50,8 +68,6 @@ contract Election {
         // update candidate vote Count
         candidates[_candidateId].voteCount ++;
 
-        // trigger voted event
-        // votedEvent(_candidateId);
     }
 
     function getvoteCount(uint _candidateId) public view returns (uint) {
@@ -60,7 +76,9 @@ contract Election {
         return candidates[_candidateId].voteCount;
     }
 
-    // function getvoteCountAll() public returns {
-        
-    // }
+    function getelectionName(uint _electionId) public view returns(string){
+        return elections[_electionId].name;
+    }
+
+
 }

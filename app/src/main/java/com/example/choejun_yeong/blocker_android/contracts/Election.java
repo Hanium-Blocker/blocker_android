@@ -15,7 +15,8 @@ import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
-import org.web3j.tuples.generated.Tuple3;
+import org.web3j.tuples.generated.Tuple2;
+import org.web3j.tuples.generated.Tuple4;
 import org.web3j.tx.Contract;
 import org.web3j.tx.TransactionManager;
 
@@ -29,7 +30,7 @@ import org.web3j.tx.TransactionManager;
  * <p>Generated with web3j version 3.6.0.
  */
 public class Election extends Contract {
-    private static final String BINARY = "608060405234801561001057600080fd5b5060408051808201909152600b81527f312eed998deca480ed919c0000000000000000000000000000000000000000006020820152610057906401000000006100a2810204565b60408051808201909152600b81527f322eebacb8ec9eacec9db8000000000000000000000000000000000000000000602082015261009d906401000000006100a2810204565b61019e565b600280546001908101918290556040805160608101825283815260208082018681526000838501819052958652848252929094208151815591518051919492936100f29390850192910190610103565b506040820151816002015590505050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061014457805160ff1916838001178555610171565b82800160010185558215610171579182015b82811115610171578251825591602001919060010190610156565b5061017d929150610181565b5090565b61019b91905b8082111561017d5760008155600101610187565b90565b61033e806101ad6000396000f30060806040526004361061006c5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416630121b93f81146100715780632d35a8a21461008b5780633477ee2e146100b25780639d48419c14610150578063a3ec138d14610168575b600080fd5b34801561007d57600080fd5b506100896004356101aa565b005b34801561009757600080fd5b506100a0610217565b60408051918252519081900360200190f35b3480156100be57600080fd5b506100ca60043561021d565b6040518084815260200180602001838152602001828103825284818151815260200191508051906020019080838360005b838110156101135781810151838201526020016100fb565b50505050905090810190601f1680156101405780820380516001836020036101000a031916815260200191505b5094505050505060405180910390f35b34801561015c57600080fd5b506100a06004356102c9565b34801561017457600080fd5b5061019673ffffffffffffffffffffffffffffffffffffffff600435166102fd565b604080519115158252519081900360200190f35b3360009081526020819052604090205460ff16156101c757600080fd5b6000811180156101d957506002548111155b15156101e457600080fd5b33600090815260208181526040808320805460ff1916600190811790915593835290839052902060020180549091019055565b60025481565b600160208181526000928352604092839020805481840180548651600296821615610100026000190190911695909504601f810185900485028601850190965285855290949193929091908301828280156102b95780601f1061028e576101008083540402835291602001916102b9565b820191906000526020600020905b81548152906001019060200180831161029c57829003601f168201915b5050505050908060020154905083565b600080821180156102dc57506002548211155b15156102e757600080fd5b5060009081526001602052604090206002015490565b60006020819052908152604090205460ff16815600a165627a7a723058208b74009057a499a3e952e666a7f1c0c5a419267e6f06e17240145ea5ad7d81a10029";
+    private static final String BINARY = "608060405234801561001057600080fd5b5060408051808201909152600c81527f3139eb8c8020eb8c80ec84a000000000000000000000000000000000000000006020820152610057906401000000006100ec810204565b60408051808201909152600b81527f312eed998deca480ed919c000000000000000000000000000000000000000000602082015261009f90600164010000000061013c810204565b60408051808201909152600b81527f322eebacb8ec9eacec9db800000000000000000000000000000000000000000060208201526100e790600164010000000061013c810204565b610249565b6004805460019081019182905560408051808201825283815260208082018681526000958652600282529290942081518155915180519194929361013693908501929101906101ae565b50505050565b600380546001908101918290556040805160808101825283815260208082018781526000838501819052606084018890529586528482529290942081518155915180519194929361019393908501929101906101ae565b50604082015160028201556060909101516003909101555050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106101ef57805160ff191683800117855561021c565b8280016001018555821561021c579182015b8281111561021c578251825591602001919060010190610201565b5061022892915061022c565b5090565b61024691905b808211156102285760008155600101610232565b90565b6105f2806102586000396000f30060806040526004361061008d5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416630121b93f81146100925780632d35a8a2146100ac5780633477ee2e146100d35780635e6fef0114610178578063997d28301461020f5780639d48419c14610224578063a3ec138d1461023c578063fef169e91461027e575b600080fd5b34801561009e57600080fd5b506100aa60043561030b565b005b3480156100b857600080fd5b506100c1610378565b60408051918252519081900360200190f35b3480156100df57600080fd5b506100eb60043561037e565b6040518085815260200180602001848152602001838152602001828103825285818151815260200191508051906020019080838360005b8381101561013a578181015183820152602001610122565b50505050905090810190601f1680156101675780820380516001836020036101000a031916815260200191505b509550505050505060405180910390f35b34801561018457600080fd5b50610190600435610430565b6040518083815260200180602001828103825283818151815260200191508051906020019080838360005b838110156101d35781810151838201526020016101bb565b50505050905090810190601f1680156102005780820380516001836020036101000a031916815260200191505b50935050505060405180910390f35b34801561021b57600080fd5b506100c16104d5565b34801561023057600080fd5b506100c16004356104db565b34801561024857600080fd5b5061026a73ffffffffffffffffffffffffffffffffffffffff6004351661050f565b604080519115158252519081900360200190f35b34801561028a57600080fd5b50610296600435610524565b6040805160208082528351818301528351919283929083019185019080838360005b838110156102d05781810151838201526020016102b8565b50505050905090810190601f1680156102fd5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b3360009081526020819052604090205460ff161561032857600080fd5b60008111801561033a57506003548111155b151561034557600080fd5b33600090815260208181526040808320805460ff1916600190811790915593835290839052902060020180549091019055565b60035481565b600160208181526000928352604092839020805481840180548651600296821615610100026000190190911695909504601f8101859004850286018501909652858552909491939290919083018282801561041a5780601f106103ef5761010080835404028352916020019161041a565b820191906000526020600020905b8154815290600101906020018083116103fd57829003601f168201915b5050505050908060020154908060030154905084565b60026020818152600092835260409283902080546001808301805487519281161561010002600019011695909504601f81018590048502820185019096528581529094919390929091908301828280156104cb5780601f106104a0576101008083540402835291602001916104cb565b820191906000526020600020905b8154815290600101906020018083116104ae57829003601f168201915b5050505050905082565b60045481565b600080821180156104ee57506003548211155b15156104f957600080fd5b5060009081526001602052604090206002015490565b60006020819052908152604090205460ff1681565b6000818152600260208181526040928390206001908101805485519281161561010002600019011693909304601f81018390048302820183019094528381526060939092918301828280156105ba5780601f1061058f576101008083540402835291602001916105ba565b820191906000526020600020905b81548152906001019060200180831161059d57829003601f168201915b505050505090509190505600a165627a7a7230582037b509943dbd01f46c58bbca012c08412792d005408d91922e5beaaddd26bf580029";
 
     public static final String FUNC_VOTE = "vote";
 
@@ -37,27 +38,25 @@ public class Election extends Contract {
 
     public static final String FUNC_CANDIDATES = "candidates";
 
+    public static final String FUNC_ELECTIONS = "elections";
+
+    public static final String FUNC_ELECTIONCOUNT = "electionCount";
+
     public static final String FUNC_GETVOTECOUNT = "getvoteCount";
 
     public static final String FUNC_VOTERS = "voters";
+
+    public static final String FUNC_GETELECTIONNAME = "getelectionName";
 
     @Deprecated
     protected Election(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
         super(BINARY, contractAddress, web3j, credentials, gasPrice, gasLimit);
     }
 
-//    protected Election(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
-//        super(BINARY, contractAddress, web3j, credentials, contractGasProvider);
-//    }
-
     @Deprecated
     protected Election(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
         super(BINARY, contractAddress, web3j, transactionManager, gasPrice, gasLimit);
     }
-
-//    protected Election(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
-//        super(BINARY, contractAddress, web3j, transactionManager, contractGasProvider);
-//    }
 
     public RemoteCall<TransactionReceipt> vote(BigInteger _candidateId) {
         final Function function = new Function(
@@ -74,21 +73,45 @@ public class Election extends Contract {
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
-    public RemoteCall<Tuple3<BigInteger, String, BigInteger>> candidates(BigInteger param0) {
+    public RemoteCall<Tuple4<BigInteger, String, BigInteger, BigInteger>> candidates(BigInteger param0) {
         final Function function = new Function(FUNC_CANDIDATES, 
                 Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(param0)), 
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}, new TypeReference<Utf8String>() {}, new TypeReference<Uint256>() {}));
-        return new RemoteCall<Tuple3<BigInteger, String, BigInteger>>(
-                new Callable<Tuple3<BigInteger, String, BigInteger>>() {
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}, new TypeReference<Utf8String>() {}, new TypeReference<Uint256>() {}, new TypeReference<Uint256>() {}));
+        return new RemoteCall<Tuple4<BigInteger, String, BigInteger, BigInteger>>(
+                new Callable<Tuple4<BigInteger, String, BigInteger, BigInteger>>() {
                     @Override
-                    public Tuple3<BigInteger, String, BigInteger> call() throws Exception {
+                    public Tuple4<BigInteger, String, BigInteger, BigInteger> call() throws Exception {
                         List<Type> results = executeCallMultipleValueReturn(function);
-                        return new Tuple3<BigInteger, String, BigInteger>(
+                        return new Tuple4<BigInteger, String, BigInteger, BigInteger>(
                                 (BigInteger) results.get(0).getValue(), 
                                 (String) results.get(1).getValue(), 
-                                (BigInteger) results.get(2).getValue());
+                                (BigInteger) results.get(2).getValue(), 
+                                (BigInteger) results.get(3).getValue());
                     }
                 });
+    }
+
+    public RemoteCall<Tuple2<BigInteger, String>> elections(BigInteger param0) {
+        final Function function = new Function(FUNC_ELECTIONS, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(param0)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}, new TypeReference<Utf8String>() {}));
+        return new RemoteCall<Tuple2<BigInteger, String>>(
+                new Callable<Tuple2<BigInteger, String>>() {
+                    @Override
+                    public Tuple2<BigInteger, String> call() throws Exception {
+                        List<Type> results = executeCallMultipleValueReturn(function);
+                        return new Tuple2<BigInteger, String>(
+                                (BigInteger) results.get(0).getValue(), 
+                                (String) results.get(1).getValue());
+                    }
+                });
+    }
+
+    public RemoteCall<BigInteger> electionCount() {
+        final Function function = new Function(FUNC_ELECTIONCOUNT, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteCall<BigInteger> getvoteCount(BigInteger _candidateId) {
@@ -105,13 +128,14 @@ public class Election extends Contract {
         return executeRemoteCallSingleValueReturn(function, Boolean.class);
     }
 
-//    public static RemoteCall<Election> deploy(Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
-//        return deployRemoteCall(Election.class, web3j, credentials, contractGasProvider, BINARY, "");
-//    }
-//
-//    public static RemoteCall<Election> deploy(Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
-//        return deployRemoteCall(Election.class, web3j, transactionManager, contractGasProvider, BINARY, "");
-//    }
+    public RemoteCall<String> getelectionName(BigInteger _electionId) {
+        final Function function = new Function(FUNC_GETELECTIONNAME, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(_electionId)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {}));
+        return executeRemoteCallSingleValueReturn(function, String.class);
+    }
+
+
 
     @Deprecated
     public static RemoteCall<Election> deploy(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
@@ -133,11 +157,4 @@ public class Election extends Contract {
         return new Election(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
     }
 
-//    public static Election load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
-//        return new Election(contractAddress, web3j, credentials, contractGasProvider);
-//    }
-//
-//    public static Election load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
-//        return new Election(contractAddress, web3j, transactionManager, contractGasProvider);
-//    }
 }

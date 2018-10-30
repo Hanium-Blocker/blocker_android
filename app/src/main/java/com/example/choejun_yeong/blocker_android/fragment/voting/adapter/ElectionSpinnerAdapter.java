@@ -7,19 +7,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.choejun_yeong.blocker_android.DataModel.Election;
+import com.example.choejun_yeong.blocker_android.DataModel.ElectionVO;
 
 import java.util.List;
 
 
-public class ElectionSpinnerAdapter extends ArrayAdapter<Election> {
+public class ElectionSpinnerAdapter extends ArrayAdapter<ElectionVO> {
     // Your sent context
     private Context context;
     // Your custom values for the spinner (User)
-    private List<Election> values;
+    private List<ElectionVO> values;
 
     public ElectionSpinnerAdapter(Context context, int textViewResourceId,
-                       List<Election> values) {
+                       List<ElectionVO> values) {
         super(context, textViewResourceId, values);
         this.context = context;
         this.values = values;
@@ -31,7 +31,7 @@ public class ElectionSpinnerAdapter extends ArrayAdapter<Election> {
     }
 
     @Override
-    public Election getItem(int position){
+    public ElectionVO getItem(int position){
         return values.get(position);
     }
 

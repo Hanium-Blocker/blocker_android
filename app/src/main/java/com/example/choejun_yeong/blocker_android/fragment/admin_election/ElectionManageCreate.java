@@ -11,15 +11,12 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
-import com.example.choejun_yeong.blocker_android.DataModel.Election;
+import com.example.choejun_yeong.blocker_android.DataModel.ElectionVO;
 import com.example.choejun_yeong.blocker_android.R;
-import com.example.choejun_yeong.blocker_android.fragment.admin_candidate.CandidateManageFragment;
 import com.example.choejun_yeong.blocker_android.service.ElectionService;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -58,7 +55,7 @@ public class ElectionManageCreate extends DialogFragment {
                 .setPositiveButton("등록", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Election election = new Election();
+                        ElectionVO election = new ElectionVO();
                         election.setElection_name(name.getText().toString());
 
                         mCompositeDisposable.add(ElectionService.getInstance().addElection(election)

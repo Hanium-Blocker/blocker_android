@@ -10,10 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
-import com.example.choejun_yeong.blocker_android.DataModel.Election;
+import com.example.choejun_yeong.blocker_android.DataModel.ElectionVO;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.fragment.admin_election.adapter.ElectionManageRvAdapter;
 import com.example.choejun_yeong.blocker_android.service.ElectionService;
@@ -23,7 +21,6 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class ElectionManageFragment extends Fragment {
@@ -88,7 +85,7 @@ public class ElectionManageFragment extends Fragment {
         mCompositeDisposable.clear();
     }
 
-    private void getElections(@NonNull final List<Election> elections) {
+    private void getElections(@NonNull final List<ElectionVO> elections) {
         rvAdapter = new ElectionManageRvAdapter(elections,fragment);
         rv.setAdapter(rvAdapter);
 

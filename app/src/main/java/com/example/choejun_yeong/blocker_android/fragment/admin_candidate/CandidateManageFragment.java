@@ -6,9 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +19,9 @@ import com.darsh.multipleimageselect.helpers.Constants;
 import com.darsh.multipleimageselect.models.Image;
 import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
-import com.example.choejun_yeong.blocker_android.DataModel.Election;
+import com.example.choejun_yeong.blocker_android.DataModel.ElectionVO;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.fragment.admin_candidate.adapter.CandidateManageAdapter;
-import com.example.choejun_yeong.blocker_android.fragment.candidate_info.CandidateMainFragment;
-import com.example.choejun_yeong.blocker_android.fragment.candidate_info.adapter.CandidateAdapter;
 import com.example.choejun_yeong.blocker_android.fragment.voting.adapter.ElectionSpinnerAdapter;
 import com.example.choejun_yeong.blocker_android.service.CandidateService;
 import com.github.clans.fab.FloatingActionButton;
@@ -129,7 +125,7 @@ public class CandidateManageFragment extends Fragment{
         mCompositeDisposable.clear();
     }
 
-    private void getElections(@NonNull final List<Election> elections) {
+    private void getElections(@NonNull final List<ElectionVO> elections) {
 
         spinnerAdapter = new ElectionSpinnerAdapter(getContext(),
                 android.R.layout.simple_spinner_item,
