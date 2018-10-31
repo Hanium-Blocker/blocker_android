@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def keystorePropertiesFile = rootProject.file("keystore.properties");
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -15,7 +19,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            buildConfigField "String", "APIServerBaseURL", keystoreProperties.getProperty("apiServerURL")
+            buildConfigField "String", "ContractAddr", keystoreProperties.getProperty("contractAddr")
+            buildConfigField "String", "MyprivateKey", keystoreProperties.getProperty("myPrivateKey")
+
+        }
     }
+
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8

@@ -8,3 +8,8 @@
 /build
 /captures
 .externalNativeBuild
+libs/
+sampledata/
+src/main/assets/out/
+src/main/java/com/example/choejun_yeong/blocker_android/contracts/
+src/main/res/solidity/

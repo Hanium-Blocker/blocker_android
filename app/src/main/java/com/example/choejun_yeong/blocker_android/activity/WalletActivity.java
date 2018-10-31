@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.choejun_yeong.blocker_android.BuildConfig;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.SharedMemory.PreferenceManager;
 import com.example.choejun_yeong.blocker_android.contracts.Election;
@@ -49,14 +50,14 @@ public class WalletActivity extends AppCompatActivity {
     @BindView(R.id.vote_button1)
     Button btn_vote;
 
-    private final static String PRIVATE_KEY = "666A82FC33F8134577A7BEB1BDEAA689BB72740178727691D63032432B83E0FB";
+    private final static String PRIVATE_KEY = BuildConfig.MyprivateKey;
 
     private final static BigInteger GAS_LIMIT = BigInteger.valueOf(6721975L);
     private final static BigInteger GAS_PRICE = BigInteger.valueOf(20000000000L);
 
     private final static String RECIPIENT = "0x2DcCa9B61E50D79A90a813fcD6a42c3A3Ac52e6f";
 
-    private final static String CONTRACT_ADDRESS = "0x5403b5705c2a89517e03ea220806c818796ba3ff";
+    private final static String CONTRACT_ADDRESS = BuildConfig.ContractAddr;
 
     Web3j web3j;
     Credentials credentials;
@@ -74,20 +75,22 @@ public class WalletActivity extends AppCompatActivity {
 //        web3j = Web3jFactory.build(new HttpService("http://10.0.2.2:8545")); //에뮬레이터의 로컬 주소는 10.0.2.2
         web3j = Web3jFactory.build(new HttpService("https://ropsten.infura.io/v3/de770d2ce1834cc794cfd6dfe42fb83d"));//해당 컨트렉트 주소로 연결
         credentials = getCredentialsFromPrivateKey(); //개인키를 통한 자격 획득.
-        new Thread() {
-            public void run() {
-                try {
-                    String contract_add = deployContract(web3j, credentials);
-                    Log.d("@@@Contract_add", "/" + contract_add);
-                } catch (
-                        Exception e)
 
-                {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-//        election = loadContract(CONTRACT_ADDRESS, web3j, credentials); //컨트랙트 주소, web3, 자격을 통한 컨트렉트 로딩.
+//        new Thread() {
+//            public void run() {
+//                try {
+//                    String contract_add = deployContract(web3j, credentials);
+//                    Log.d("@@@Contract_add", "/" + contract_add);
+//                } catch (
+//                        Exception e)
+//                {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }.start();
+
+
+        election = loadContract(CONTRACT_ADDRESS, web3j, credentials); //컨트랙트 주소, web3, 자격을 통한 컨트렉트 로딩.
 //
 //        Credentials myCredential = null;
 //        try {
@@ -279,6 +282,11 @@ public class WalletActivity extends AppCompatActivity {
         void onButtonClicked4 () {
             String str = PreferenceManager.getWalletPath();
             Log.d("@@@@WAllet Path ", str);
+        }
+
+        @OnClick(R.id.test_btn2)
+        void onButtonClicked5(){
+
         }
     }
 

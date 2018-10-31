@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
 import com.example.choejun_yeong.blocker_android.DataModel.CandidateVO;
 import com.example.choejun_yeong.blocker_android.DataModel.ElectionVO;
@@ -48,6 +49,8 @@ public class TurnoutFragment extends Fragment {
     private List<ElectionVO> electionList;
     private List<CandidateVO> candidateList;
     private ElectionSpinnerAdapter spinnerAdapter;
+    private int totalVoterCount = 10; // 유권자 총 수
+    private int currentVotingCount = 0; // 현재 투표에 참여한 유권자 수
     ContractUtil contractUtil;
     int electionCounter = 0;
     int candidateCounter = 0;
@@ -58,6 +61,9 @@ public class TurnoutFragment extends Fragment {
 
     @BindView(R.id.turnout_voter_donut_progress)
     DonutProgress donutProgress;
+
+    @BindView(R.id.turnout_voter_text)
+    TextView textView;
 
     @Nullable
     @Override
@@ -82,9 +88,11 @@ public class TurnoutFragment extends Fragment {
 //        contractUtil.getElectionInfo(contractUtil.getElectionCount());
 //        Log.d("@@@Count",""+count);
 
-        ElectionVO electionVO = new ElectionVO();
+        // 선거 정보 리스트로 로딩.
+
         for (int i = 1; i < electionCounter + 1; i++) {
-            contractUtil.getElectionInfo(electionCounter)
+            ElectionVO electionVO = new ElectionVO();
+            contractUtil.getElectionInfo(i)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
                     .onErrorReturn(new Func1<Throwable, Tuple2<BigInteger, String>>() {
@@ -98,15 +106,16 @@ public class TurnoutFragment extends Fragment {
                         electionVO.setElection_id(Integer.parseInt(x.getValue1().toString()));
                         electionVO.setElection_name(x.getValue2());
                         electionList.add(electionVO);
-                        Log.d("@@@List", "" + electionList.get(0).getElection_name());
+                        Log.d("@@@Election_name:",x.getValue2());
                         setViewofElectionList();
                     });
-
         }
 
-        CandidateVO candidateVO = new CandidateVO();
+        // 후보자 정보 리스트로 로딩.
+
         for (int i = 1; i < candidateCounter + 1; i++) {
-            contractUtil.getCandidateInfo(candidateCounter)
+            CandidateVO candidateVO = new CandidateVO();
+            contractUtil.getCandidateInfo(i)
                     .subscribeOn(Schedulers.computation())
                     .onErrorReturn(new Func1<Throwable, Tuple4<BigInteger, String, BigInteger, BigInteger>>() {
                         @Override
@@ -130,7 +139,10 @@ public class TurnoutFragment extends Fragment {
 
     @OnItemSelected(R.id.turnout_voter_spinner)
     void spinnerItemSelected(int position) {
-
+        countingVoter(electionList.get(position).getElection_id());
+        percentageOfTurnout = (float)currentVotingCount/(float)totalVoterCount*100f; //현재 투표율 퍼센테이지
+        donutProgress.setProgress(percentageOfTurnout);
+        textView.setText("온라인 선거 참여 신청자\n총 인원 "+totalVoterCount+"분 중, "+currentVotingCount+"분이 투표하셨습니다.");
     }
 
 
@@ -189,6 +201,29 @@ public class TurnoutFragment extends Fragment {
                     android.R.layout.simple_spinner_item,
                     electionList);
             spinner.setAdapter(spinnerAdapter);
+
+            countingVoter(electionList.get(0).getElection_id());
+            percentageOfTurnout = (float)currentVotingCount/(float)totalVoterCount*100f; //현재 투표율 퍼센테이지
+            Log.d("@@@",""+percentageOfTurnout);
+            donutProgress.setProgress(percentageOfTurnout);
+            textView.setText("온라인 선거 참여 신청자\n총 인원 "+totalVoterCount+"분 중, "+currentVotingCount+"분이 투표하셨습니다.");
+
+        }
+    }
+
+    private void countingVoter(int election_id) {
+        currentVotingCount = 0;
+        for (int i = 0; i < candidateList.size(); i++) {
+            if (candidateList.get(i).getElection_id() == election_id)
+                currentVotingCount += candidateList.get(i).getVoteCount();
+            Log.d("@@@cand vote count:",""+candidateList.get(i).getVoteCount());
+        }
+    }
+
+    @OnClick (R.id.test_btn_turnout)
+    void onButtonClicked(){
+        for(int i=0;i<electionList.size();i++){
+            Log.d("@@@@LOG",""+electionList.get(i).getElection_name()+"//"+electionList.get(i).getElection_id());
         }
     }
 }

@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.choejun_yeong.blocker_android.BuildConfig;
 import com.example.choejun_yeong.blocker_android.contracts.Election;
 
 import org.web3j.crypto.CipherException;
@@ -27,11 +28,11 @@ import rx.Observable;
 
 public class ContractUtil {
 
-    private final static String PRIVATE_KEY = "666A82FC33F8134577A7BEB1BDEAA689BB72740178727691D63032432B83E0FB";
+    private final static String PRIVATE_KEY = BuildConfig.MyprivateKey;
     private final static BigInteger GAS_LIMIT = BigInteger.valueOf(6721975L);
     private final static BigInteger GAS_PRICE = BigInteger.valueOf(20000000000L);
     private final static String RECIPIENT = "0x2DcCa9B61E50D79A90a813fcD6a42c3A3Ac52e6f";
-    private final static String CONTRACT_ADDRESS = "0xb610ffe0cf83319c566a5daffbe6317557624368";
+    private final static String CONTRACT_ADDRESS = BuildConfig.ContractAddr;
     private Context context;
     Web3j web3j;
     Credentials credentials;
