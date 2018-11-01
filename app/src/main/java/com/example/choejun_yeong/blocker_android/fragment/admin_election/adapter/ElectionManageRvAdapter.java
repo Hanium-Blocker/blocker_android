@@ -1,8 +1,6 @@
 package com.example.choejun_yeong.blocker_android.fragment.admin_election.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
-import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
-import com.example.choejun_yeong.blocker_android.DataModel.Election;
+import com.example.choejun_yeong.blocker_android.DataModel.ElectionVO;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.fragment.admin_election.ElectionManageFragment;
 import com.example.choejun_yeong.blocker_android.fragment.admin_election.ElectionManageModify;
@@ -30,7 +27,7 @@ public class ElectionManageRvAdapter extends RecyclerView.Adapter<ElectionManage
     @NonNull
     private CompositeDisposable mCompositeDisposable;
 
-    private List<Election> modellist;
+    private List<ElectionVO> modellist;
     private ElectionManageFragment fragment;
 
     public ElectionManageRvAdapter(List model, ElectionManageFragment fragment) {

@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +15,12 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
-import com.example.choejun_yeong.blocker_android.DataModel.CandidateUpload;
-import com.example.choejun_yeong.blocker_android.DataModel.Election;
+import com.example.choejun_yeong.blocker_android.DataModel.ElectionVO;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.fragment.candidate_info.adapter.CandidateAdapter;
 import com.example.choejun_yeong.blocker_android.fragment.voting.adapter.ElectionSpinnerAdapter;
 import com.example.choejun_yeong.blocker_android.service.CandidateService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -103,7 +100,7 @@ public class CandidateMainFragment extends Fragment {
         mCompositeDisposable.clear();
     }
 
-    private void getElections(@NonNull final List<Election> elections) {
+    private void getElections(@NonNull final List<ElectionVO> elections) {
 
         spinnerAdapter = new ElectionSpinnerAdapter(getContext(),
                 android.R.layout.simple_spinner_item,

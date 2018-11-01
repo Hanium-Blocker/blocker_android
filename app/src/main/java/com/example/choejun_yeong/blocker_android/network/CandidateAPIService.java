@@ -4,9 +4,8 @@ package com.example.choejun_yeong.blocker_android.network;
 import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
 import com.example.choejun_yeong.blocker_android.DataModel.CandidateUpload;
-import com.example.choejun_yeong.blocker_android.DataModel.Election;
+import com.example.choejun_yeong.blocker_android.DataModel.ElectionVO;
 
-import java.io.File;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -23,7 +22,7 @@ import retrofit2.http.Path;
 public interface CandidateAPIService {
 
     @GET("election/")
-    Observable<List<Election>> getElections();
+    Observable<List<ElectionVO>> getElections();
 
     @GET("election/{electionId}/candidate/")
     Observable<List<Candidate>> getCandidates(@Path("electionId") int election_id);

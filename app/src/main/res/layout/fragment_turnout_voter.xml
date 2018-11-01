@@ -23,4 +23,30 @@
         android:layout_height="wrap_content"
         custom:donut_progress="30"/>
 
+    <Button
+        android:id="@+id/turnout_voter_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:background="@android:drawable/ic_popup_sync" />
+
+    <Button
+        android:id="@+id/test_btn_turnout"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/turnout_voter_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/turnout_voter_donut_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="18sp"
+        android:text="온라인 선거 참여 신청자 \n
+        총 인원 10분 중, 2분이 투표하셨습니다."/>
+
 </RelativeLayout>

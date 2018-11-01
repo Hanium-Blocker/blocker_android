@@ -8,21 +8,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate_Voting;
-import com.example.choejun_yeong.blocker_android.DataModel.Election;
+import com.example.choejun_yeong.blocker_android.DataModel.ElectionVO;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.activity.MainActivity;
-import com.example.choejun_yeong.blocker_android.fragment.login.LoginFragment;
 import com.example.choejun_yeong.blocker_android.fragment.voting.adapter.ElectionSpinnerAdapter;
 import com.example.choejun_yeong.blocker_android.fragment.voting.adapter.Voting_cand_rv_adapter;
 import com.example.choejun_yeong.blocker_android.service.CandidateService;
@@ -120,7 +117,7 @@ public class VotingMainFragment extends Fragment {
     }
 
 
-    private void getElections(@NonNull final List<Election> elections) {
+    private void getElections(@NonNull final List<ElectionVO> elections) {
 
 //        Log.d("@@@@",elections.get(0).getElection_name());
         spinnerAdapter = new ElectionSpinnerAdapter(getContext(),

@@ -38,4 +38,15 @@
         android:layout_width="100dp"
         android:layout_height="100dp">
     </Button>
+
+    <Button
+        android:layout_height="100dp"
+        android:layout_width="100dp"
+        android:id="@+id/test_btn2"
+        android:text="기타"
+        android:layout_toRightOf="@id/vote_button1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp">
+
+    </Button>
 </RelativeLayout>

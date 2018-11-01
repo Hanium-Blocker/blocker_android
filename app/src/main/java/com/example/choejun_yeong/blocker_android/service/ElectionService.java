@@ -1,14 +1,13 @@
 package com.example.choejun_yeong.blocker_android.service;
 
 import com.example.choejun_yeong.blocker_android.DataModel.AuthResponse;
-import com.example.choejun_yeong.blocker_android.DataModel.Election;
+import com.example.choejun_yeong.blocker_android.DataModel.ElectionVO;
 import com.example.choejun_yeong.blocker_android.network.APIUtiles;
 import com.example.choejun_yeong.blocker_android.network.ElectionAPIService;
 
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 
 public class ElectionService {
@@ -26,7 +25,7 @@ public class ElectionService {
         mService = APIUtiles.getElectionService();
     }
 
-    public Observable<List<Election>> getElectionlist(){
+    public Observable<List<ElectionVO>> getElectionlist(){
         mService = APIUtiles.getElectionService();
 
         return mService.getElections()
@@ -34,7 +33,7 @@ public class ElectionService {
                 .map(it -> it);
     }
 
-    public Observable<AuthResponse> addElection(Election election){
+    public Observable<AuthResponse> addElection(ElectionVO election){
         mService = APIUtiles.getElectionService();
 
         return mService.addElection(election)
@@ -50,7 +49,7 @@ public class ElectionService {
                 .map(it->it);
     }
 
-    public Observable<AuthResponse> modifyElection(int electionId,Election election){
+    public Observable<AuthResponse> modifyElection(int electionId,ElectionVO election){
         mService = APIUtiles.getElectionService();
 
         return mService.modifyElection(electionId,election)
