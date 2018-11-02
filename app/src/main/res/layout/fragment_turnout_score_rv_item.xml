@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    >
+
+    <TextView
+        android:id="@+id/turnout_score_item_name"
+        android:text="1.문재인"
+        android:textSize="20sp"
+        android:layout_marginLeft="20dp"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar
+        android:id="@+id/turnout_score_item_progress"
+        android:layout_toRightOf="@+id/turnout_score_item_name"
+        android:layout_marginLeft="20dp"
+        android:layout_centerVertical="true"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        app:rcIconSize="40dp"
+        app:rcIconPadding="5dp"
+        app:rcBackgroundPadding="10dp"
+        app:rcRadius="15dp"
+        ></com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar>
+
+</RelativeLayout>

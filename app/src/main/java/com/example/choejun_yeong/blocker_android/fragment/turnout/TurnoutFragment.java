@@ -72,70 +72,12 @@ public class TurnoutFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_turnout_voter, container, false);
         ButterKnife.bind(this, view);
 
-
-//        donutProgress.setProgress(20f);
-
         contractUtil = new ContractUtil(getContext());
-
 
         return view;
     }
 
-    @OnClick(R.id.turnout_voter_button)
-    void Onclick() {
-//        int count= contractUtil.getElectionCount();
-//        Log.d("@@@election info",""+contractUtil.getElectionInfo(contractUtil.getElectionCount()));
-//        contractUtil.getElectionInfo(contractUtil.getElectionCount());
-//        Log.d("@@@Count",""+count);
 
-        // 선거 정보 리스트로 로딩.
-
-        for (int i = 1; i < electionCounter + 1; i++) {
-            ElectionVO electionVO = new ElectionVO();
-            contractUtil.getElectionInfo(i)
-                    .subscribeOn(Schedulers.computation())
-                    .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
-                    .onErrorReturn(new Func1<Throwable, Tuple2<BigInteger, String>>() {
-                        @Override
-                        public Tuple2 call(Throwable throwable) {
-                            Log.d("@@@ERROR", throwable.getMessage());
-                            return null;
-                        }
-                    })
-                    .subscribe(x -> {
-                        electionVO.setElection_id(Integer.parseInt(x.getValue1().toString()));
-                        electionVO.setElection_name(x.getValue2());
-                        electionList.add(electionVO);
-                        Log.d("@@@Election_name:",x.getValue2());
-                        setViewofElectionList();
-                    });
-        }
-
-        // 후보자 정보 리스트로 로딩.
-
-        for (int i = 1; i < candidateCounter + 1; i++) {
-            CandidateVO candidateVO = new CandidateVO();
-            contractUtil.getCandidateInfo(i)
-                    .subscribeOn(Schedulers.computation())
-                    .onErrorReturn(new Func1<Throwable, Tuple4<BigInteger, String, BigInteger, BigInteger>>() {
-                        @Override
-                        public Tuple4<BigInteger, String, BigInteger, BigInteger> call(Throwable throwable) {
-                            Log.d("@@@ERROR2", "error!");
-                            return null;
-                        }
-                    })
-                    .subscribe(x -> {
-                        candidateVO.setCandidateId(Integer.parseInt(x.getValue1().toString()));
-                        candidateVO.setName(x.getValue2());
-                        candidateVO.setVoteCount(Integer.parseInt(x.getValue3().toString()));
-                        candidateVO.setElection_id(Integer.parseInt(x.getValue4().toString()));
-                        candidateList.add(candidateVO);
-                        Log.d("@@@List", "///list:" + candidateList.size());
-                    });
-        }
-
-
-    }
 
     @OnItemSelected(R.id.turnout_voter_spinner)
     void spinnerItemSelected(int position) {
@@ -192,6 +134,58 @@ public class TurnoutFragment extends Fragment {
     }
 
     private void unBind() {
+
+    }
+
+    @OnClick(R.id.turnout_voter_button)
+    void Onclick() {
+
+        // 선거 정보 리스트로 로딩.
+
+        for (int i = 1; i < electionCounter + 1; i++) {
+            ElectionVO electionVO = new ElectionVO();
+            contractUtil.getElectionInfo(i)
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+                    .onErrorReturn(new Func1<Throwable, Tuple2<BigInteger, String>>() {
+                        @Override
+                        public Tuple2 call(Throwable throwable) {
+                            Log.d("@@@ERROR", throwable.getMessage());
+                            return null;
+                        }
+                    })
+                    .subscribe(x -> {
+                        electionVO.setElection_id(Integer.parseInt(x.getValue1().toString()));
+                        electionVO.setElection_name(x.getValue2());
+                        electionList.add(electionVO);
+                        Log.d("@@@Election_name:",x.getValue2());
+                        setViewofElectionList();
+                    });
+        }
+
+        // 후보자 정보 리스트로 로딩.
+
+        for (int i = 1; i < candidateCounter + 1; i++) {
+            CandidateVO candidateVO = new CandidateVO();
+            contractUtil.getCandidateInfo(i)
+                    .subscribeOn(Schedulers.computation())
+                    .onErrorReturn(new Func1<Throwable, Tuple4<BigInteger, String, BigInteger, BigInteger>>() {
+                        @Override
+                        public Tuple4<BigInteger, String, BigInteger, BigInteger> call(Throwable throwable) {
+                            Log.d("@@@ERROR2", "error!");
+                            return null;
+                        }
+                    })
+                    .subscribe(x -> {
+                        candidateVO.setCandidateId(Integer.parseInt(x.getValue1().toString()));
+                        candidateVO.setName(x.getValue2());
+                        candidateVO.setVoteCount(Integer.parseInt(x.getValue3().toString()));
+                        candidateVO.setElection_id(Integer.parseInt(x.getValue4().toString()));
+                        candidateList.add(candidateVO);
+                        Log.d("@@@List", "///list:" + candidateList.size());
+                    });
+        }
+
 
     }
 
