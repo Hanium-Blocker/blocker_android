@@ -206,7 +206,18 @@ public class ScoreFragment extends Fragment {
 
     @OnClick(R.id.turnout_score_testbtn)
     void onButtonClicked(){
-
+//        contractUtil.isVoted().subscribeOn(Schedulers.computation())
+//                .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+//                .onErrorReturn(new Func1<Throwable, Boolean>() {
+//                    @Override
+//                    public Boolean call(Throwable throwable) {
+//                        Log.d("@@@ERROR3", throwable.getMessage());
+//                        return null;
+//                    }
+//                })
+//                .subscribe(x -> {
+//                    Log.d("@@@@is voted? ",""+x.toString());
+//                });
     }
 
     @OnItemSelected(R.id.turnout_score_spinner)

@@ -13,6 +13,7 @@ import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tuples.generated.Tuple2;
 import org.web3j.tuples.generated.Tuple4;
@@ -175,4 +176,14 @@ public class ContractUtil {
     public Observable<Tuple4<BigInteger, String, BigInteger, BigInteger>> getCandidateInfo(int candidatecount) {
         return election.candidates(BigInteger.valueOf(candidatecount)).observable();
     }
+
+    public Observable<Boolean> isVoted(){
+        return election.voters(credentials.getAddress()).observable();
+
+    }
+
+    public Observable<TransactionReceipt> voting(int candidateId){
+        return election.vote(BigInteger.valueOf(candidateId)).observable();
+    }
+
 }
