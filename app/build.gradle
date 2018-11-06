@@ -80,6 +80,5 @@ dependencies {
     //progress wheel
     implementation 'com.github.lzyzsd:circleprogress:1.2.1'
 
-    //progress bar(round)
-    implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+    implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
 }

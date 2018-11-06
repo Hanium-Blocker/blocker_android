@@ -12,15 +12,16 @@ import android.view.ViewGroup;
 
 import com.example.choejun_yeong.blocker_android.DataModel.CandidateVO;
 import com.example.choejun_yeong.blocker_android.R;
+import com.example.choejun_yeong.blocker_android.fragment.turnout.ScoreFragment;
 
 import java.util.List;
 
 public class ScoreListAdapter extends RecyclerView.Adapter<ScoreListViewHolder> {
     private List<CandidateVO> list;
     private Context context;
-    private Fragment fragment;
+    private ScoreFragment fragment;
 
-    public ScoreListAdapter(List<CandidateVO> list, Context context, Fragment fragment) {
+    public ScoreListAdapter(List<CandidateVO> list, Context context, ScoreFragment fragment) {
         this.list = list;
         this.context = context;
         this.fragment = fragment;
@@ -38,13 +39,8 @@ public class ScoreListAdapter extends RecyclerView.Adapter<ScoreListViewHolder> 
     public void onBindViewHolder(@NonNull ScoreListViewHolder scoreListViewHolder, int i) {
         Log.d("@@LOGLOG",""+list.get(i).getName().toString());
         scoreListViewHolder.textView.setText(list.get(i).getName().toString());
-        scoreListViewHolder.roundCornerProgressBar.setProgressColor(Color.parseColor("#1DDB16"));
-        scoreListViewHolder.roundCornerProgressBar.setProgressBackgroundColor(Color.parseColor("#808080"));
-        scoreListViewHolder.roundCornerProgressBar.setIconBackgroundColor(Color.parseColor("#38c0ae"));
-        scoreListViewHolder.roundCornerProgressBar.setMax(100f);
-        scoreListViewHolder.roundCornerProgressBar.setProgress(30f);
-
-
+        scoreListViewHolder.progressBar.setMax(fragment.getTotalVoterCount());
+        scoreListViewHolder.progressBar.setProgress(list.get(i).getVoteCount());
     }
 
     @Override

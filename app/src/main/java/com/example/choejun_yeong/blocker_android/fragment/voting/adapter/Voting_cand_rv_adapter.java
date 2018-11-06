@@ -38,7 +38,8 @@ public class Voting_cand_rv_adapter extends RecyclerView.Adapter<VotingCandViewH
         final Candidate_Voting model = modellist.get(i);
         holder.cand_name.setText(""+model.getId()+". "+model.getName());
 
-        if (model.getId() == lastCheckedPosition){
+
+        if (i == lastCheckedPosition){
             holder.radioButton.setChecked(true);
         }else{
             holder.radioButton.setChecked(false);
@@ -46,30 +47,27 @@ public class Voting_cand_rv_adapter extends RecyclerView.Adapter<VotingCandViewH
         holder.radioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lastCheckedPosition = model.getId();
+                lastCheckedPosition = i;
                 notifyItemRangeChanged(0, modellist.size());
 
             }
         });
+
         holder.cand_name.setOnClickListener(new View.OnClickListener() {
             @Override
 
             public void onClick(View v) {
-                lastCheckedPosition = model.getId();
+                lastCheckedPosition = i;
                 notifyItemRangeChanged(0, modellist.size());
 
             }
         });
     }
-
 
 
     public Candidate_Voting getSelectedItem(){
         Candidate_Voting model = modellist.get(lastCheckedPosition);
         return model;
-    }
-    public int selectedPosition(){
-        return lastCheckedPosition;
     }
 
     @Override

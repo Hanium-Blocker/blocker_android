@@ -45,6 +45,7 @@ public class VotingMainFragment extends Fragment {
     private CompositeSubscription compositeSubscription;
     List<Candidate_Voting> modellist;
     RecyclerView rv;
+    Voting_cand_rv_adapter rvAdapter;
     Spinner spinner;
     Button voting_btn;
     TextView voting_votedText;
@@ -96,6 +97,7 @@ public class VotingMainFragment extends Fragment {
         voting_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("@@@LOGTEST",""+rvAdapter.getSelectedItem().getName());
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.voting_container, new FingerprintFragment());
@@ -126,16 +128,16 @@ public class VotingMainFragment extends Fragment {
         .subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::getElections));
 
-        compositeSubscription.add(contractUtil.isVoted()
-                .subscribeOn(rx.schedulers.Schedulers.computation())
-                .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
-                .onErrorReturn(new Func1<Throwable, Boolean>() {
-                    @Override
-                    public Boolean call(Throwable throwable) {
-                        Log.d("@@@@Error in votingMain","error");
-                        return null;
-                    }
-                }).subscribe(this::hasVoted));
+//        compositeSubscription.add(contractUtil.isVoted()
+//                .subscribeOn(rx.schedulers.Schedulers.computation())
+//                .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+//                .onErrorReturn(new Func1<Throwable, Boolean>() {
+//                    @Override
+//                    public Boolean call(Throwable throwable) {
+//                        Log.d("@@@@Error in votingMain","error");
+//                        return null;
+//                    }
+//                }).subscribe(this::hasVoted));
 
 
     }
@@ -167,7 +169,9 @@ public class VotingMainFragment extends Fragment {
             cand.setId(candidates.get(i).getNumber());
             modellist.add(cand);
         }
-        rv.setAdapter(new Voting_cand_rv_adapter(modellist,getContext()));
+        rvAdapter = new Voting_cand_rv_adapter(modellist,getContext());
+        rv.setAdapter(rvAdapter);
+
     }
 
     private void hasVoted(Boolean bool){

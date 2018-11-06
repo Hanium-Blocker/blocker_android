@@ -225,4 +225,8 @@ public class ScoreFragment extends Fragment {
         currentElectionptr = position;
         setCandidateItems(candidateList,currentElectionptr);
     }
+
+    public int getTotalVoterCount() {
+        return totalVoterCount;
+    }
 }

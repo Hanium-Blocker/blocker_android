@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
+import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.example.choejun_yeong.blocker_android.R;
 
 import butterknife.BindView;
@@ -18,7 +18,8 @@ public class ScoreListViewHolder extends RecyclerView.ViewHolder {
     public TextView textView;
 
     @BindView(R.id.turnout_score_item_progress)
-    public IconRoundCornerProgressBar roundCornerProgressBar;
+    public NumberProgressBar progressBar;
+
 
 
     public ScoreListViewHolder(@NonNull View itemView) {

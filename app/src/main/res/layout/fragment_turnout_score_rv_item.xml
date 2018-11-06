@@ -15,17 +15,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar
+    <com.daimajia.numberprogressbar.NumberProgressBar
         android:id="@+id/turnout_score_item_progress"
-        android:layout_toRightOf="@+id/turnout_score_item_name"
-        android:layout_marginLeft="20dp"
-        android:layout_centerVertical="true"
-        android:layout_width="200dp"
+        android:layout_width="230dp"
         android:layout_height="50dp"
-        app:rcIconSize="40dp"
-        app:rcIconPadding="5dp"
-        app:rcBackgroundPadding="10dp"
-        app:rcRadius="15dp"
-        ></com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar>
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        app:progress_reached_bar_height="5dp"
+        app:progress_max="100"
+        app:progress_current="20"
+        style="@style/NumberProgressBar_Relax_Blue"
+        android:layout_toRightOf="@id/turnout_score_item_name"/>
+
 
 </RelativeLayout>
