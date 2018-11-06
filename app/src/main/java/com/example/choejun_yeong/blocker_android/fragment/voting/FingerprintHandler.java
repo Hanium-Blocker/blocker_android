@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 
 import com.example.choejun_yeong.blocker_android.R;
+import com.example.choejun_yeong.blocker_android.util.ContractUtil;
 
 
 /**
@@ -21,11 +22,14 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
 
     private Context context;
+    private ContractUtil contractUtil;
+    private int candidateId;//TODO: 체크된 후보자 id 가져와서 입력
 
 
     // Constructor
     public FingerprintHandler(Context mContext) {
         context = mContext;
+        contractUtil = new ContractUtil(context);
     }
 
 
@@ -59,6 +63,8 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     @Override
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
         this.update("지문인증 완료.", true);
+
+//        contractUtil.voting() TODO: 후보자 id 가져와서 voting기능 구현.
     }
 
 

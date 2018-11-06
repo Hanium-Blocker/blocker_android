@@ -46,6 +46,7 @@ public class FingerprintFragment extends Fragment {
     private static final String KEY_NAME = "androidHive";
     private Cipher cipher;
     private TextView textView;
+    private int candidateId; //TODO: 체크된 후보자 id 가져와서 입력
 
     @Nullable
     @Override
