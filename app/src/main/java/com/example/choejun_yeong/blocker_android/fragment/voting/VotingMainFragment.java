@@ -18,16 +18,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate;
+import com.example.choejun_yeong.blocker_android.DataModel.CandidateVO;
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate_Voting;
 import com.example.choejun_yeong.blocker_android.DataModel.ElectionVO;
 import com.example.choejun_yeong.blocker_android.R;
 import com.example.choejun_yeong.blocker_android.activity.MainActivity;
+import com.example.choejun_yeong.blocker_android.fragment.turnout.adapter.ScoreListAdapter;
 import com.example.choejun_yeong.blocker_android.fragment.voting.adapter.ElectionSpinnerAdapter;
 import com.example.choejun_yeong.blocker_android.fragment.voting.adapter.Voting_cand_rv_adapter;
 import com.example.choejun_yeong.blocker_android.service.CandidateService;
 import com.example.choejun_yeong.blocker_android.util.ContractUtil;
 
 import org.spongycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
+import org.web3j.tuples.generated.Tuple2;
+import org.web3j.tuples.generated.Tuple4;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -43,7 +47,13 @@ public class VotingMainFragment extends Fragment {
     @NonNull
     private CompositeDisposable mCompositeDisposable;
     private CompositeSubscription compositeSubscription;
-    List<Candidate_Voting> modellist;
+//    List<Candidate_Voting> modellist;
+    private List<CandidateVO> candidateList;
+    private List<ElectionVO> electionList;
+    private int electionCounter = 0;
+    private int candidateCounter = 0;
+    private int currentElectionptr = 0;
+    private List<CandidateVO> currentCandlist;
     RecyclerView rv;
     Voting_cand_rv_adapter rvAdapter;
     Spinner spinner;
@@ -80,13 +90,9 @@ public class VotingMainFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view,
                                        int position, long id) {
-
-                mCompositeDisposable.add(CandidateService.getInstance().getCandidatelist(spinnerAdapter.getItem(position).getElection_id())
-                        .subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(VotingMainFragment.this::getCandidates));
-                // Here you get the current item (a User object) that is selected by its position
-
-                // Here you can do the action you want to...
+                currentElectionptr = position;
+                setCandidateItems(candidateList,currentElectionptr);
+                voting_btn.setEnabled(false);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapter) {  }
@@ -124,10 +130,41 @@ public class VotingMainFragment extends Fragment {
         mCompositeDisposable = new CompositeDisposable();
         compositeSubscription = new CompositeSubscription();
 
-        mCompositeDisposable.add(CandidateService.getInstance().getElectionlist()
-        .subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::getElections));
 
+        electionList = new ArrayList<>();
+        candidateList = new ArrayList<>();
+
+
+        compositeSubscription.add(contractUtil.getElectionCount()
+                .subscribeOn(rx.schedulers.Schedulers.computation())
+                .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+                .onErrorReturn(new Func1<Throwable, BigInteger>() {
+                    @Override
+                    public BigInteger call(Throwable throwable) {
+                        return BigInteger.valueOf(0);
+                    }
+                }).subscribe(x -> {
+                    String str = x.toString();
+                    electionCounter = Integer.parseInt(str);
+                    getElectionsList();
+
+                    compositeSubscription.add(contractUtil.getCandidateCount()
+                            .subscribeOn(rx.schedulers.Schedulers.computation())
+                            .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+                            .onErrorReturn(new Func1<Throwable, BigInteger>() {
+                                @Override
+                                public BigInteger call(Throwable throwable) {
+                                    return BigInteger.valueOf(0);
+                                }
+                            })
+                            .subscribe(y -> {
+                                String str2 = y.toString();
+                                candidateCounter = Integer.parseInt(str2);
+                                getCandidatesList();
+                            }));
+                }));
+
+        //TODO: 투표 여부 검사
 //        compositeSubscription.add(contractUtil.isVoted()
 //                .subscribeOn(rx.schedulers.Schedulers.computation())
 //                .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
@@ -144,35 +181,81 @@ public class VotingMainFragment extends Fragment {
 
     private void unBind() {
         mCompositeDisposable.clear();
+        compositeSubscription.clear();
     }
 
-
-    private void getElections(@NonNull final List<ElectionVO> elections) {
-
-//        Log.d("@@@@",elections.get(0).getElection_name());
-        spinnerAdapter = new ElectionSpinnerAdapter(getContext(),
-                android.R.layout.simple_spinner_item,
-                elections);
-        spinner.setAdapter(spinnerAdapter);
-
-        mCompositeDisposable.add(CandidateService.getInstance().getCandidatelist(elections.get(0).getElection_id())
-                .subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::getCandidates));
-
-    }
-
-    private void getCandidates(@NonNull final List<Candidate> candidates){
-        modellist = new ArrayList<>();
-        for(int i=0;i<candidates.size();i++){
-            Candidate_Voting cand = new Candidate_Voting();
-            cand.setName(candidates.get(i).getName());
-            cand.setId(candidates.get(i).getNumber());
-            modellist.add(cand);
+    private void getCandidatesList(){
+        for (int i = 1; i < candidateCounter + 1; i++) {
+            CandidateVO candidateVO = new CandidateVO();
+            contractUtil.getCandidateInfo(i)
+                    .subscribeOn(rx.schedulers.Schedulers.computation())
+                    .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+                    .onErrorReturn(new Func1<Throwable, Tuple4<BigInteger, String, BigInteger, BigInteger>>() {
+                        @Override
+                        public Tuple4<BigInteger, String, BigInteger, BigInteger> call(Throwable throwable) {
+                            Log.d("@@@ERROR2", "error!");
+                            return null;
+                        }
+                    })
+                    .subscribe(x -> {
+                        candidateVO.setCandidateId(Integer.parseInt(x.getValue1().toString()));
+                        candidateVO.setName(x.getValue2());
+                        candidateVO.setVoteCount(Integer.parseInt(x.getValue3().toString()));
+                        candidateVO.setElection_id(Integer.parseInt(x.getValue4().toString()));
+                        candidateList.add(candidateVO);
+                        Log.d("@@@List", "///list:" + candidateList.size());
+                        setCandidateItems(candidateList,currentElectionptr);
+                    });
         }
-        rvAdapter = new Voting_cand_rv_adapter(modellist,getContext());
-        rv.setAdapter(rvAdapter);
-
     }
+
+    private void getElectionsList(){
+        for (int i = 1; i < electionCounter + 1; i++) {
+            ElectionVO electionVO = new ElectionVO();
+            contractUtil.getElectionInfo(i)
+                    .subscribeOn(rx.schedulers.Schedulers.computation())
+                    .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+                    .onErrorReturn(new Func1<Throwable, Tuple2<BigInteger, String>>() {
+                        @Override
+                        public Tuple2 call(Throwable throwable) {
+                            Log.d("@@@ERROR", throwable.getMessage());
+                            return null;
+                        }
+                    })
+                    .subscribe(x -> {
+                        electionVO.setElection_id(Integer.parseInt(x.getValue1().toString()));
+                        electionVO.setElection_name(x.getValue2());
+                        electionList.add(electionVO);
+                        Log.d("@@@Election_name:",x.getValue2());
+                        setViewofElectionList();
+                    });
+        }
+    }
+
+    private void setViewofElectionList() {
+        if (electionCounter == electionList.size()) { // 선거정보 카운터와 선거정보리스트의 크기가 같아질때 즉, 데이터 수신이 완료 된 시점에.
+            spinnerAdapter = new ElectionSpinnerAdapter(getContext(),
+                    android.R.layout.simple_spinner_item,
+                    electionList);
+            spinner.setAdapter(spinnerAdapter);
+        }
+    }
+
+    private void setCandidateItems(List<CandidateVO> list,int election_ptr){
+
+        if(candidateCounter == candidateList.size()){
+            currentCandlist = new ArrayList<>();
+            for(int i=0;i<candidateList.size();i++){
+                if(candidateList.get(i).getElection_id()==electionList.get(election_ptr).getElection_id()){
+                    currentCandlist.add(candidateList.get(i));
+                }
+            }
+            rv.setLayoutManager(rvManager);
+            rvAdapter = new Voting_cand_rv_adapter(currentCandlist,getContext(),voting_btn);
+            rv.setAdapter(rvAdapter);
+        }
+    }
+
 
     private void hasVoted(Boolean bool){
         if(bool.equals(true)){
