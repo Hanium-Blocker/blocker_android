@@ -7,7 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.choejun_yeong.blocker_android.DataModel.CandidateVO;
 import com.example.choejun_yeong.blocker_android.DataModel.Candidate_Voting;
 import com.example.choejun_yeong.blocker_android.R;
 
@@ -15,13 +17,15 @@ import java.util.List;
 
 public class Voting_cand_rv_adapter extends RecyclerView.Adapter<VotingCandViewHolder>{
 
-    private List<Candidate_Voting> modellist;
+    private List<CandidateVO> modellist;
     private Context context;
     private int lastCheckedPosition = -1;
+    private Button button;
 
-    public Voting_cand_rv_adapter(List model, Context context) {
+    public Voting_cand_rv_adapter(List model, Context context,Button button) {
         modellist = model;
         this.context = context;
+        this.button = button;
     }
 
 
@@ -35,8 +39,8 @@ public class Voting_cand_rv_adapter extends RecyclerView.Adapter<VotingCandViewH
 
     @Override
     public void onBindViewHolder(@NonNull VotingCandViewHolder holder, int i) {
-        final Candidate_Voting model = modellist.get(i);
-        holder.cand_name.setText(""+model.getId()+". "+model.getName());
+        final CandidateVO model = modellist.get(i);
+        holder.cand_name.setText(model.getName());
 
 
         if (i == lastCheckedPosition){
@@ -48,6 +52,7 @@ public class Voting_cand_rv_adapter extends RecyclerView.Adapter<VotingCandViewH
             @Override
             public void onClick(View v) {
                 lastCheckedPosition = i;
+                button.setEnabled(true);
                 notifyItemRangeChanged(0, modellist.size());
 
             }
@@ -58,6 +63,7 @@ public class Voting_cand_rv_adapter extends RecyclerView.Adapter<VotingCandViewH
 
             public void onClick(View v) {
                 lastCheckedPosition = i;
+                button.setEnabled(true);
                 notifyItemRangeChanged(0, modellist.size());
 
             }
@@ -65,8 +71,8 @@ public class Voting_cand_rv_adapter extends RecyclerView.Adapter<VotingCandViewH
     }
 
 
-    public Candidate_Voting getSelectedItem(){
-        Candidate_Voting model = modellist.get(lastCheckedPosition);
+    public CandidateVO getSelectedItem(){
+        CandidateVO model = modellist.get(lastCheckedPosition);
         return model;
     }
 

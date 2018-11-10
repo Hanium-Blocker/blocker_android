@@ -140,7 +140,7 @@ public class TurnoutFragment extends Fragment {
     }
 
     private void unBind() {
-
+        compositeSubscription.clear();
     }
 
     private void getElectionList(){

@@ -130,7 +130,7 @@ public class ScoreFragment extends Fragment {
     }
 
     private void unBind(){
-
+        compositeSubscription.clear();
     }
 
     private void getCandidatesList(){
