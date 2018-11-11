@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="176dp"
+        android:layout_marginTop="120dp"
         android:lineHeight="32sp"
         android:lineSpacingExtra="10sp"
         android:text="김주현님의 남은 잔액은"
