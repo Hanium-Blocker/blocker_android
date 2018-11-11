@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("후보자 정보"));
         tabLayout.addTab(tabLayout.newTab().setText("투표율 보기"));
         tabLayout.addTab(tabLayout.newTab().setText("투표하기"));
+        tabLayout.addTab(tabLayout.newTab().setText("마이페이지"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         viewpager.setOverScrollMode(View.OVER_SCROLL_NEVER);

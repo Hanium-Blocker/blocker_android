@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.choejun_yeong.blocker_android.fragment.candidate_info.CandidateMainFragment;
+import com.example.choejun_yeong.blocker_android.fragment.mypage.MyPageFragment;
 import com.example.choejun_yeong.blocker_android.fragment.turnout.TurnoutMainFragment;
 import com.example.choejun_yeong.blocker_android.fragment.voting.VotingMainFragment;
 import com.example.choejun_yeong.blocker_android.fragment.voting.VotingRootFragment;
@@ -27,6 +28,8 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
                 return new TurnoutMainFragment();
             case 2:
                 return new VotingRootFragment();
+            case 3:
+                return new MyPageFragment();
             default:
                 return null;
         }
