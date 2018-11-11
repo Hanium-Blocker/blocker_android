@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import com.example.choejun_yeong.blocker_android.DataModel.CandidateVO;
 import com.example.choejun_yeong.blocker_android.DataModel.ElectionVO;
 import com.example.choejun_yeong.blocker_android.R;
+import com.example.choejun_yeong.blocker_android.SharedMemory.PreferenceManager;
 import com.example.choejun_yeong.blocker_android.fragment.turnout.adapter.ScoreListAdapter;
 import com.example.choejun_yeong.blocker_android.fragment.voting.adapter.ElectionSpinnerAdapter;
 import com.example.choejun_yeong.blocker_android.util.ContractUtil;
@@ -218,6 +219,11 @@ public class ScoreFragment extends Fragment {
 //                .subscribe(x -> {
 //                    Log.d("@@@@is voted? ",""+x.toString());
 //                });
+        Log.d("@@@@@Balance ",""+contractUtil.getBalance());
+        Log.d("@@@@@Private ",""+contractUtil.getPrivateKey());
+        Log.d("@@@@@Password ",""+PreferenceManager.getWalletPassword());
+        Log.d("@@@@@Path ",""+ PreferenceManager.getWalletPath());
+
     }
 
     @OnItemSelected(R.id.turnout_score_spinner)

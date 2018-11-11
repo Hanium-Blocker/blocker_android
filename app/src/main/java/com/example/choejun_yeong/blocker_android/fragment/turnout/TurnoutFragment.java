@@ -208,7 +208,7 @@ public class TurnoutFragment extends Fragment {
 
     @OnClick(R.id.turnout_voter_button)
     void Onclick() {
-
+        bind();
     }
 
     private void countingVoter(int election_id) {
