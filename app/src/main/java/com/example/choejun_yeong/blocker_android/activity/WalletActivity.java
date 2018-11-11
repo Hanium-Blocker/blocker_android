@@ -76,21 +76,22 @@ public class WalletActivity extends AppCompatActivity {
         web3j = Web3jFactory.build(new HttpService("https://ropsten.infura.io/v3/de770d2ce1834cc794cfd6dfe42fb83d"));//해당 컨트렉트 주소로 연결
         credentials = getCredentialsFromPrivateKey(); //개인키를 통한 자격 획득.
 
-//        new Thread() {
-//            public void run() {
-//                try {
-//                    String contract_add = deployContract(web3j, credentials);
-//                    Log.d("@@@Contract_add", "/" + contract_add);
-//                } catch (
-//                        Exception e)
-//                {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }.start();
+        new Thread() {
+            public void run() {
+                try {
+                    String contract_add = deployContract(web3j, credentials);
+                    Log.d("@@@Contract_add", "/" + contract_add);
+                } catch (
+                        Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
 
 
-        election = loadContract(CONTRACT_ADDRESS, web3j, credentials); //컨트랙트 주소, web3, 자격을 통한 컨트렉트 로딩.
+//        election = loadContract(CONTRACT_ADDRESS, web3j, credentials); //컨트랙트 주소, web3, 자격을 통한 컨트렉트 로딩.
+
 //
 //        Credentials myCredential = null;
 //        try {

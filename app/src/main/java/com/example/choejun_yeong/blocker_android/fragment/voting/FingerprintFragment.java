@@ -48,6 +48,17 @@ public class FingerprintFragment extends Fragment {
     private TextView textView;
     private int candidateId; //TODO: 체크된 후보자 id 가져와서 입력
 
+
+    public static FingerprintFragment newInstance(int candidateId) {
+
+        Bundle args = new Bundle();
+
+        FingerprintFragment fragment = new FingerprintFragment();
+        fragment.setArguments(args);
+        fragment.candidateId = candidateId;
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -85,7 +96,7 @@ public class FingerprintFragment extends Fragment {
 
                         if (cipherInit()) {
                             FingerprintManager.CryptoObject cryptoObject = new FingerprintManager.CryptoObject(cipher);
-                            FingerprintHandler helper = new FingerprintHandler(getContext());
+                            FingerprintHandler helper = new FingerprintHandler(getContext(),candidateId);
                             helper.startAuth(fingerprintManager, cryptoObject);
                         }
                     }

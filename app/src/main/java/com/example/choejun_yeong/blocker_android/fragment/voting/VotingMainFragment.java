@@ -106,7 +106,7 @@ public class VotingMainFragment extends Fragment {
                 Log.d("@@@LOGTEST",""+rvAdapter.getSelectedItem().getName());
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.voting_container, new FingerprintFragment());
+                fragmentTransaction.replace(R.id.voting_container, FingerprintFragment.newInstance(rvAdapter.getSelectedItem().getCandidateId()));
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 MainActivity.tabVisible(View.GONE);
@@ -165,16 +165,16 @@ public class VotingMainFragment extends Fragment {
                 }));
 
         //TODO: 투표 여부 검사
-//        compositeSubscription.add(contractUtil.isVoted()
-//                .subscribeOn(rx.schedulers.Schedulers.computation())
-//                .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
-//                .onErrorReturn(new Func1<Throwable, Boolean>() {
-//                    @Override
-//                    public Boolean call(Throwable throwable) {
-//                        Log.d("@@@@Error in votingMain","error");
-//                        return null;
-//                    }
-//                }).subscribe(this::hasVoted));
+        compositeSubscription.add(contractUtil.isVoted()
+                .subscribeOn(rx.schedulers.Schedulers.computation())
+                .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+                .onErrorReturn(new Func1<Throwable, Tuple2<BigInteger,Boolean>>() {
+                    @Override
+                    public Tuple2<BigInteger,Boolean> call(Throwable throwable) {
+                        Log.d("@@@@Error in votingMain","error");
+                        return null;
+                    }
+                }).subscribe(this::hasVoted));
 
 
     }
@@ -257,8 +257,8 @@ public class VotingMainFragment extends Fragment {
     }
 
 
-    private void hasVoted(Boolean bool){
-        if(bool.equals(true)){
+    private void hasVoted(Tuple2<BigInteger,Boolean> tuple2){
+        if(tuple2.getValue2().equals(true)){
             voting_btn.setVisibility(View.GONE);
             voting_votedText.setVisibility(View.VISIBLE);
         }

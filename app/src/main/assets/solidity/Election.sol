@@ -15,9 +15,17 @@ contract Election {
         string name;
     }
 
+    struct VoteRecord{
+        uint election_id;
+        bool isvoted;
+    }
+
     //초기 토큰 공급량.
     // uint public decimals = 2; //자리수
     // uint public INITIAL_SUPPLY = 10000 * (10 ** decimals);
+
+    //
+    mapping(address => VoteRecord) public VoteRecords;
 
     // 투표 유무 저장
     mapping(address => bool) public voters;
@@ -60,11 +68,16 @@ contract Election {
 
     function vote (uint _candidateId) public {
         // require that they haven't voted before
-        require(!voters[msg.sender]);
+
+        // require(!voters[msg.sender]);
+        require(!VoteRecords[msg.sender].isvoted);
 
         // require a valid candidate
         require(_candidateId > 0 && _candidateId <= candidatesCount);
 
+
+        VoteRecords[msg.sender].election_id= candidates[_candidateId].electionId;
+        VoteRecords[msg.sender].isvoted = true;
         // record that voter has voted
         voters[msg.sender] = true;
 
