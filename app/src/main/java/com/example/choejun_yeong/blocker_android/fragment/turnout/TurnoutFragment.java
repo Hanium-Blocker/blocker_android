@@ -161,7 +161,6 @@ public class TurnoutFragment extends Fragment {
                         electionVO.setElection_name(x.getValue2());
                         electionList.add(electionVO);
                         Log.d("@@@Election_name:", x.getValue2());
-                        setViewofElectionList();
                     });
         }
     }
@@ -171,6 +170,7 @@ public class TurnoutFragment extends Fragment {
             CandidateVO candidateVO = new CandidateVO();
             contractUtil.getCandidateInfo(i)
                     .subscribeOn(Schedulers.computation())
+                    .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
                     .onErrorReturn(new Func1<Throwable, Tuple4<BigInteger, String, BigInteger, BigInteger>>() {
                         @Override
                         public Tuple4<BigInteger, String, BigInteger, BigInteger> call(Throwable throwable) {
@@ -185,12 +185,13 @@ public class TurnoutFragment extends Fragment {
                         candidateVO.setElection_id(Integer.parseInt(x.getValue4().toString()));
                         candidateList.add(candidateVO);
                         Log.d("@@@List", "///list:" + candidateList.size());
+                        setViewofElectionList();
                     });
         }
     }
 
     private void setViewofElectionList() {
-        if (electionCounter == electionList.size()) { // 선거정보 카운터와 선거정보리스트의 크기가 같아질때 즉, 데이터 수신이 완료 된 시점에.
+        if (candidateCounter == candidateList.size()) { // 선거정보 카운터와 선거정보리스트의 크기가 같아질때 즉, 데이터 수신이 완료 된 시점에.
             spinnerAdapter = new ElectionSpinnerAdapter(getContext(),
                     android.R.layout.simple_spinner_item,
                     electionList);
