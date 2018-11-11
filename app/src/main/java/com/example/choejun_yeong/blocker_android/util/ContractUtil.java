@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.choejun_yeong.blocker_android.BuildConfig;
+import com.example.choejun_yeong.blocker_android.SharedMemory.PreferenceManager;
 import com.example.choejun_yeong.blocker_android.contracts.Election;
 
 import org.web3j.crypto.CipherException;
@@ -13,11 +14,14 @@ import org.web3j.crypto.Credentials;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tuples.Tuple;
 import org.web3j.tuples.generated.Tuple2;
 import org.web3j.tuples.generated.Tuple4;
+import org.web3j.utils.Convert;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +29,7 @@ import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.util.concurrent.ExecutionException;
 
 import rx.Observable;
 
@@ -43,15 +48,22 @@ public class ContractUtil {
     public ContractUtil(Context context) {
         this.context = context;
         web3j = Web3jFactory.build(new HttpService("https://ropsten.infura.io/v3/de770d2ce1834cc794cfd6dfe42fb83d"));//해당 컨트렉트 주소로 연결
-        credentials = getCredentialsFromPrivateKey(); //개인키를 통한 자격 획득.
+//        credentials = getCredentialsFromPrivateKey(); //개인키를 통한 자격 획득.
+        try {
+            credentials = getCredentialsFromWallet();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CipherException e) {
+            e.printStackTrace();
+        }
         election = loadContract(CONTRACT_ADDRESS, web3j, credentials); //컨트랙트 주소, web3, 자격을 통한 컨트렉트 로딩.
 
     }
 
     private Credentials getCredentialsFromWallet() throws IOException, CipherException {
         return WalletUtils.loadCredentials(
-                "passphrase",
-                "wallet/path"
+                PreferenceManager.getWalletPassword(),
+                PreferenceManager.getWalletPath()
         );
     }
 
@@ -69,7 +81,7 @@ public class ContractUtil {
         return Election.load(contractAddress, web3j, credentials, GAS_PRICE, GAS_LIMIT);
     }
 
-    public String[] createWallet(final String password) { //password 를 인자로 던져주면 String 배열에 wallet 이 저장된 path 와 wallet 주소를 반환 해주는 메소드
+    public static String[] createWallet(final String password,Context context) { //password 를 인자로 던져주면 String 배열에 wallet 이 저장된 path 와 wallet 주소를 반환 해주는 메소드
         String[] result = new String[2];
         try {
             File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS); //다운로드 path 가져오기
@@ -98,6 +110,7 @@ public class ContractUtil {
 
 
     // TODO:  잔액 조회 기능 만들기.
+
 
     public void getVoterInfo() {
         new Thread() {
@@ -188,4 +201,26 @@ public class ContractUtil {
         return election.vote(BigInteger.valueOf(candidateId)).observable();
     }
 
+    public String getBalance(){
+        String result = null;
+        EthGetBalance ethGetBalance = null;
+        try {
+
+            //이더리움 노드에게 지정한 Address 의 잔액을 조회한다.
+            ethGetBalance = web3j.ethGetBalance(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
+            BigInteger wei = ethGetBalance.getBalance();
+            //wei 단위를 ETH 단위로 변환 한다.
+            result = Convert.fromWei(wei.toString() , Convert.Unit.ETHER).toString();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return result;
+
+    }
+
+    public String getPrivateKey(){
+        return credentials.getEcKeyPair().getPrivateKey().toString(16);
+    }
 }

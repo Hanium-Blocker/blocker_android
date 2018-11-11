@@ -21,6 +21,7 @@ import org.web3j.tuples.generated.Tuple2;
 
 import java.math.BigInteger;
 
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -77,11 +78,12 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
         contractUtil.voting(candidateId)
                 .subscribeOn(Schedulers.computation())
-                .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
                 .onErrorReturn(new Func1<Throwable, TransactionReceipt>() {
                     @Override
                     public TransactionReceipt call(Throwable throwable) {
                         Log.d("@@@ERROR in Voting", throwable.getMessage());
+                        Toast.makeText(context, "토큰이 부족하여 투표를 하지 못했습니다", Toast.LENGTH_SHORT).show();
                         return null;
                     }
                 })

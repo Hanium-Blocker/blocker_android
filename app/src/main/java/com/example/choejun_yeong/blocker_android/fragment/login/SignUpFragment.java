@@ -35,7 +35,7 @@ public class SignUpFragment extends Fragment {
     private CompositeDisposable mCompositeDisposable;
 
     EditText id,pw,name,gender,tel,region,birth;
-    ContractUtil contractUtil;
+//    ContractUtil contractUtil;
     Button signup_btn;
     UserInfo userInfo = new UserInfo();
 
@@ -43,7 +43,7 @@ public class SignUpFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         frag = this;
-        contractUtil = new ContractUtil(frag.getContext());
+//        contractUtil = new ContractUtil(frag.getContext());
         View view = inflater.inflate(R.layout.fragment_signup,container,false);
         setupViews(view);
         return view;
@@ -85,7 +85,8 @@ public class SignUpFragment extends Fragment {
     private void signup(@NonNull final AuthResponse response) {
         if(response.getCode()==200){
             PreferenceManager.setWalletPassword(userInfo.getPassword());
-            contractUtil.createWallet(PreferenceManager.getWalletPassword());
+            String[] wallet_str = ContractUtil.createWallet(PreferenceManager.getWalletPassword(),getContext());
+            PreferenceManager.setWalletPath(wallet_str[0]);
             Log.d("@@@wallet Path: ",""+PreferenceManager.getWalletPath());
             Toast.makeText(getActivity(), "회원가입 성공", Toast.LENGTH_SHORT).show();
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
