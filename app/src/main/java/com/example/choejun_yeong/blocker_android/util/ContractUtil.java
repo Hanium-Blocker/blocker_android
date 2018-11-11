@@ -210,6 +210,7 @@ public class ContractUtil {
             ethGetBalance = web3j.ethGetBalance(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync().get();
             BigInteger wei = ethGetBalance.getBalance();
             //wei 단위를 ETH 단위로 변환 한다.
+
             result = Convert.fromWei(wei.toString() , Convert.Unit.ETHER).toString();
         } catch (InterruptedException e) {
             e.printStackTrace();

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.choejun_yeong.blocker_android.R;
+import com.example.choejun_yeong.blocker_android.util.ContractUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,12 +35,17 @@ public class MyPageFragment extends Fragment {
 
     private CheckPrivateKeyDialog dialog;
 
+    private ContractUtil contractUtil;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mypage, container, false);
 
         ButterKnife.bind(this, view);
 
+        contractUtil = new ContractUtil(getContext());
+
+        balanceTxt.setText(contractUtil.getBalance()+"eth 입니다.");
 
         return view;
     }
@@ -48,7 +54,7 @@ public class MyPageFragment extends Fragment {
     @OnClick(R.id.check_private_key_btn)
     public void checkPrivateKey(){
         Log.d("@@@test","test");
-        dialog = new CheckPrivateKeyDialog(getContext(), "test");
+        dialog = new CheckPrivateKeyDialog(getContext(), contractUtil.getPrivateKey());
         dialog.show();
     }
 
