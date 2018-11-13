@@ -35,7 +35,8 @@
     <Button
         android:id="@+id/test_btn_turnout"
         android:layout_width="50dp"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/turnout_voter_text"

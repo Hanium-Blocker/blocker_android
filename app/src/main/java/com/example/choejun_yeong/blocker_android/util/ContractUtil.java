@@ -224,4 +224,8 @@ public class ContractUtil {
     public String getPrivateKey(){
         return credentials.getEcKeyPair().getPrivateKey().toString(16);
     }
+
+    public String getAddress(){
+        return credentials.getAddress().toString();
+    }
 }

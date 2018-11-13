@@ -51,9 +51,11 @@ contract Election {
         addElection("19대 대선");
         addCandidate("1.홍준표",1);
         addCandidate("2.문재인",1);
+        addCandidate("3.안철수",1);
         addElection("20대 대선");
-        addCandidate("1.김철수",2);
-        addCandidate("2.이맹구",2);
+        addCandidate("1.홍길동",2);
+        addCandidate("2.임꺽정",2);
+        addCandidate("3.장길산",2);
     }
 
     function addCandidate (string _name,uint electionId) public {

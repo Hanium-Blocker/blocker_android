@@ -287,7 +287,6 @@ public class WalletActivity extends AppCompatActivity {
 
         @OnClick(R.id.test_btn2)
         void onButtonClicked5(){
-
         }
     }
 
