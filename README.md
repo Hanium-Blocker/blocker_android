@@ -50,7 +50,7 @@ Retrofit을 이용하여 서버와 통신 연동.
 
 
 ## Preview
-| ![1](./readmeImage/1.png) | ![2](./readmeImage/2.png) | ![2-1](./readmeImage/2-1png) | ![2-2](./readmeImage/2-2.png) | ![3](./readmeImage/3.png) |
+| ![1](./readmeImage/1.png) | ![2](./readmeImage/2.png) | ![2-1](./readmeImage/2-1.png) | ![2-2](./readmeImage/2-2.png) | ![3](./readmeImage/3.png) |
 |:---:|:---:|:---:|:---:|:---:|
 | ![4](./readmeImage/4.png) | ![5](./readmeImage/5.png) | ![6](./readmeImage/6.png) | ![7](./readmeImage/7.png) | ![8](./readmeImage/8.png) |
 | ![8-1](./readmeImage/8-1.png) | ![8-2](./readmeImage/8-2.png) | ![8-3](./readmeImage/8-3.png) | ![8-4](./readmeImage/8-4.png) | ![8-5](./readmeImage/8-5.png) |
@@ -58,4 +58,4 @@ Retrofit을 이용하여 서버와 통신 연동.
 | ![14](./readmeImage/14.png) | ![15](./readmeImage/15.png) ||||
 
 ## Preview_ video
-<iframe width="560" height="315" src="https://www.youtube.com/embed/KF16BYdMv58" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/KF16BYdMv58/0.jpg)](http://www.youtube.com/watch?vKF16BYdMv58 )
