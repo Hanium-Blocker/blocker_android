@@ -58,4 +58,4 @@ Retrofit을 이용하여 서버와 통신 연동.
 | ![14](./readmeImage/14.png) | ![15](./readmeImage/15.png) ||||
 
 ## Preview_ video
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/KF16BYdMv58/0.jpg)](http://www.youtube.com/watch?vKF16BYdMv58 )
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/KF16BYdMv58/0.jpg)](http://www.youtube.com/watch?v=KF16BYdMv58 )
