@@ -219,8 +219,10 @@ public class ScoreFragment extends Fragment {
 //                .subscribe(x -> {
 //                    Log.d("@@@@is voted? ",""+x.toString());
 //                });
+        bind();
         Log.d("@@@@@Balance ",""+contractUtil.getBalance());
         Log.d("@@@@@Private ",""+contractUtil.getPrivateKey());
+        Log.d("@@@@@Wallet Address",""+contractUtil.getAddress());
         Log.d("@@@@@Password ",""+PreferenceManager.getWalletPassword());
         Log.d("@@@@@Path ",""+ PreferenceManager.getWalletPath());
 

@@ -13,7 +13,7 @@
         android:layout_marginTop="120dp"
         android:lineHeight="32sp"
         android:lineSpacingExtra="10sp"
-        android:text="김주현님의 남은 잔액은"
+        android:text="블로커님의 남은 잔액은"
         android:textColor="#333333"
         android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,13 +23,13 @@
         android:id="@+id/balance_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
+
         android:layout_marginTop="52dp"
         android:lineHeight="28sp"
         android:lineSpacingExtra="10sp"
         android:text="1000eth 입니다."
         android:textColor="#333333"
-        android:textSize="32sp"
+        android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/name_text" />
 
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="38dp"
         android:padding="8dp"
         android:text="개인키 확인하기"
         android:background="#2186f8"
@@ -46,6 +46,20 @@
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/balance_text" />
+
+    <TextView
+        android:id="@+id/wallet_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="50dp"
+        android:textSize="10sp"
+        android:text="지갑 주소는 : \nasdfasdfadfasdfasdfasdf@@@ 입니다."
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/check_private_key_btn"
+
+         />
 
 
 </android.support.constraint.ConstraintLayout>

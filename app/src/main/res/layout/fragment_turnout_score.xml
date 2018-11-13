@@ -25,6 +25,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:background="@android:drawable/ic_popup_sync"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>
 

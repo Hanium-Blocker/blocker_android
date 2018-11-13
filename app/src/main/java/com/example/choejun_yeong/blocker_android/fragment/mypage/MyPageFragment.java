@@ -33,6 +33,9 @@ public class MyPageFragment extends Fragment {
     @BindView(R.id.check_private_key_btn)
     Button checkPrivate;
 
+    @BindView(R.id.wallet_text)
+    TextView address_text;
+
     private CheckPrivateKeyDialog dialog;
 
     private ContractUtil contractUtil;
@@ -45,8 +48,9 @@ public class MyPageFragment extends Fragment {
 
         contractUtil = new ContractUtil(getContext());
 
-        balanceTxt.setText(contractUtil.getBalance()+"eth 입니다.");
-
+        balanceTxt.setText(contractUtil.getBalance()+"eth");
+        address_text.setText("지갑주소 : \n"+contractUtil.getAddress());
+        Log.d("@@@address",""+contractUtil.getAddress());
         return view;
     }
 
