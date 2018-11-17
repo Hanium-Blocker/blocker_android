@@ -63,4 +63,4 @@ Retrofit을 이용하여 서버와 통신 연동.
 ## 팀원 소개
 - Mentor: 홍민표
 - Mentee : 김주현, 조현우, 최준영
-![image](https://user-images.githubusercontent.com/36880294/48470679-6a5a1780-e835-11e8-856c-2b8a3dc7cd81.png)
+![groupImage](groupImage.jpeg)
